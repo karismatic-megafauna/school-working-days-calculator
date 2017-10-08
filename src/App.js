@@ -1,18 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import moment from 'moment';
+import excludedDates from './excluded_dates.json';
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      numberOfDays: 0,
+      result: "",
+    }
+  }
+
+  calculateDate = () => {
+    const calculatedDate = moment()
+      .day(this.state.numberOfDays)
+      .format("MM-DD-YYYY");
+    this.setState({ result: calculatedDate })
+  }
+
+  setNumberOfDays = ({target}) => {
+    this.setState({ numberOfDays: target.value });
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="App Stack">
+        <div className="Flex">
+          <div>
+            Excluded Dates:
+          </div>
+          <div>
+            {excludedDates.data.map(date => <div>{date}</div>)}
+          </div>
+        </div>
+        <div>
+          <input
+            type="number"
+            onChange={this.setNumberOfDays}
+            value={this.state.numberOfDays}
+          />
+          <button onClick={this.calculateDate}>
+            Calculate Date
+          </button>
+          { this.state.result &&
+              <div>In {this.state.numberOfDays} days it will be {this.state.result}</div>
+          }
+        </div>
       </div>
     );
   }
