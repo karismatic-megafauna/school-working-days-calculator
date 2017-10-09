@@ -26,7 +26,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App Stack">
+      <div className="App">
         <div className="Flex">
           <div>
             Excluded Dates:
@@ -45,7 +45,7 @@ class App extends Component {
             Calculate Date
           </button>
           { this.state.result &&
-              <div>In {this.state.numberOfDays} days it will be {this.state.result}</div>
+              <div>In {this.state.numberOfDays} working school days it will be {this.state.result}</div>
           }
         </div>
       </div>
