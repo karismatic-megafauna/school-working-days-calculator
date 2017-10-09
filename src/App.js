@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import weekdayCalc from 'moment-weekday-calc';
 import excludedDates from './excluded_dates.json';
 import './App.css';
 
@@ -14,8 +15,9 @@ class App extends Component {
 
   calculateDate = () => {
     const calculatedDate = moment()
-      .day(this.state.numberOfDays)
-      .format("MM-DD-YYYY");
+      .addWorkdays(this.state.numberOfDays, excludedDates.data)
+      .format('MM-DD-YYYY');
+
     this.setState({ result: calculatedDate })
   }
 
