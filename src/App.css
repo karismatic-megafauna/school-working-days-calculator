@@ -1,7 +1,5 @@
 .App {
   font-size: 16px;
-  display: flex;
-  justify-content: space-around;
 }
 
 .Flex {
@@ -13,11 +11,198 @@
 }
 
 .Card {
-  background: #eaeaea;
+  background: #ddd;
   padding: 12px;
-  margin: 6px;
+  margin: 6px 0px;
 }
 
 .Split {
   justify-content: space-between;
 }
+
+.Split-Around {
+  justify-content: space-around;
+}
+
+.SidebarContent {
+  margin: 6px;
+}
+
+.Date {
+  font-weight: bold;
+  text-align: center;
+}
+
+.Result {
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+}
+
+.ResultContent {
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.Sidebar {
+  flex: 0 0 25%;
+  background: #f1f1f1;
+  padding: 0px 6px;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.Main {
+  flex: 1 1 75%;
+}
+
+.Content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-directon: column;
+}
+
+.Control {
+  display: flex;
+  align-items: center;
+}
+
+.Input {
+  height: 37px;
+	border-radius: 5px;
+  border: none;
+  text-align: center;
+  font-size: 15px;
+}
+
+.bg {
+	background: #7986cb;
+	color: #ECEFF1;
+}
+
+/* Common button styles */
+.button {
+	min-width: 150px;
+	max-width: 250px;
+	display: block;
+	margin: 1em;
+	padding: 1em 2em;
+	border: none;
+	background: none;
+	color: inherit;
+	vertical-align: middle;
+	position: relative;
+	z-index: 1;
+	-webkit-backface-visibility: hidden;
+	-moz-osx-font-smoothing: grayscale;
+}
+.button:focus {
+	outline: none;
+}
+.button > span {
+	vertical-align: middle;
+}
+
+.bg .button {
+	color: #ECEFF1;
+	border-color: #ECEFF1;
+}
+/* Sizes */
+.button--size-s {
+	font-size: 14px;
+}
+.button--size-m {
+	font-size: 16px;
+}
+.button--size-l {
+	font-size: 18px;
+}
+
+/* Typography and Roundedness */
+.button--text-upper {
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+.button--text-thin {
+	font-weight: 300;
+}
+.button--text-medium {
+	font-weight: 500;
+}
+.button--text-thick {
+	font-weight: 600;
+}
+.button--round-s {
+	border-radius: 5px;
+}
+.button--round-m {
+	border-radius: 15px;
+}
+.button--round-l {
+	border-radius: 40px;
+}
+
+/* Borders */
+.button--border-thin {
+	border: 1px solid;
+}
+.button--border-medium {
+	border: 2px solid;
+}
+.button--border-thick {
+	border: 3px solid;
+}
+
+/* Individual button styles */
+
+
+/* Ujarak */
+.button--ujarak {
+	-webkit-transition: border-color 0.4s, color 0.4s;
+	transition: border-color 0.4s, color 0.4s;
+}
+.button--ujarak::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #37474f;
+	z-index: -1;
+	opacity: 0;
+	-webkit-transform: scale3d(0.7, 1, 1);
+	transform: scale3d(0.7, 1, 1);
+	-webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
+	transition: transform 0.4s, opacity 0.4s;
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+.button--ujarak.button--round-s::before {
+	border-radius: 2px;
+}
+.button--ujarak.button--inverted::before {
+	background: #7986CB;
+}
+.button--ujarak,
+.button--ujarak::before {
+	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+.button--ujarak:hover {
+	color: #fff;
+	border-color: #37474f;
+}
+.button--ujarak.button--inverted:hover {
+	color: #37474F;
+	border-color: #fff;
+}
+.button--ujarak:hover::before {
+	opacity: 1;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
