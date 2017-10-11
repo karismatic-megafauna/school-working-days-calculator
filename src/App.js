@@ -15,7 +15,7 @@ class App extends Component {
 
   calculateDate = () => {
     const calculatedDate = moment()
-      .addWorkdays(this.state.numberOfDays, excludedDates.data)
+      .addWorkdays(this.state.numberOfDays, excludedDates)
       .format('MM-DD-YYYY');
 
     this.setState({ result: calculatedDate })
@@ -32,7 +32,12 @@ class App extends Component {
             Excluded Dates:
           </div>
           <div>
-            {excludedDates.data.map(date => <div>{date}</div>)}
+            {excludedDates.map(item => (
+              <div className="Flex Card Split">
+                <div>{item.date}</div>
+                <div>{item.reason}</div>
+              </div>
+            ))}
           </div>
         </div>
         <div>

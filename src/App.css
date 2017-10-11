@@ -11,3 +11,13 @@
 .Stack {
   flex-direction: column;
 }
+
+.Card {
+  background: #eaeaea;
+  padding: 12px;
+  margin: 6px;
+}
+
+.Split {
+  justify-content: space-between;
+}

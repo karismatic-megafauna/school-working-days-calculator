@@ -1,12 +1,25 @@
-{
-  "data": [
-    "10/9/2017",
-    "11/20/2017",
-    "11/23/2017",
-    "12/25/2017",
-    "1/1/2017",
-    "1/15/2018",
-    "2/19/2018",
-    "5/18/2018"
-  ]
-}
+[
+  { "date": "10/23/2017", "reason": "Teacher Day - No School" },
+  { "date": "11/22/2017", "reason": "Thanksgiving Recess" },
+  { "date": "11/23/2017", "reason": "Thanksgiving Recess" },
+  { "date": "11/24/2017", "reason": "Thanksgiving Recess" },
+  { "date": "12/25/2017", "reason": "December Recess" },
+  { "date": "12/26/2017", "reason": "December Recess" },
+  { "date": "12/27/2017", "reason": "December Recess" },
+  { "date": "12/28/2017", "reason": "December Recess" },
+  { "date": "12/29/2017", "reason": "December Recess" },
+  { "date": "1/1/2018", "reason": "New Year's Day - No School" },
+  { "date": "1/15/2018", "reason": "MLK Day - No School" },
+  { "date": "2/19/18", "reason": "Winter Recess" },
+  { "date": "2/20/2018", "reason": "Winter Recess" },
+  { "date": "2/21/18", "reason": "Winter Recess" },
+  { "date": "2/22/2018", "reason": "Winter Recess" },
+  { "date": "2/23/2018", "reason": "Winter Recess" },
+  { "date": "3/30/2018", "reason": "Good Friday - No School" },
+  { "date": "4/16/2018", "reason": "Spring Recess" },
+  { "date": "4/17/2018", "reason": "Spring Recess" },
+  { "date": "4/18/2018", "reason": "Spring Recess" },
+  { "date": "4/19/2018", "reason": "Spring Recess" },
+  { "date": "4/20/2018", "reason": "Spring Recess" },
+  { "date": "5/28/2017", "reason": "Memorial Day - No School" }
+]
