@@ -29,7 +29,9 @@ class App extends Component {
 
   decodeToState = () => {
     const params = this.getParams();
-    const decodedData = JSON.parse(window.atob(params));
+    const decodedData = params === ""
+      ? []
+      : JSON.parse(window.atob(params));
 
     return decodedData;
   }
@@ -63,10 +65,6 @@ class App extends Component {
     this.setState({ numberOfDays: target.value });
   }
 
-  // componentWillMount() {
-  //   this.decodeToState();
-  // }
-
   render() {
     return (
       <div className="App Flex">
@@ -83,12 +81,15 @@ class App extends Component {
                 Reason:
               </div>
             </div>
-            {this.state.data.map(item => (
-              <div className="Flex Card Split">
-                <div>{item.date}</div>
-                <div>{item.reason}</div>
-              </div>
-            ))}
+            {this.state.data.length === 0
+                ? <div>No dates to exclude</div>
+                : this.state.data.map(item => (
+                  <div className="Flex Card Split">
+                    <div>{item.date}</div>
+                    <div>{item.reason}</div>
+                  </div>
+                ))
+            }
           </div>
         </div>
         <div className="Main bg">
