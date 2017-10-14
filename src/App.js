@@ -69,9 +69,17 @@ class App extends Component {
     return (
       <div className="App Flex">
         <div className="Sidebar Flex Stack">
-          <h3>
-            Excluded Dates:
-          </h3>
+          <div className="Flex Split">
+            <h3>
+              Excluded Dates:
+            </h3>
+            <button
+              onClick={this.addToUrl}
+              className="button button--ujarak button--border-medium button--round-s button--text-thick"
+            >
+              Save
+            </button>
+          </div>
           <div className="SidebarContent">
             <div className="Flex Split-Around">
               <div>
@@ -84,7 +92,7 @@ class App extends Component {
             {this.state.data.length === 0
                 ? <div>No dates to exclude</div>
                 : this.state.data.map(item => (
-                  <div className="Flex Card Split">
+                  <div key={item.date} className="Flex Card Split">
                     <div>{item.date}</div>
                     <div>{item.reason}</div>
                   </div>
@@ -93,7 +101,7 @@ class App extends Component {
           </div>
         </div>
         <div className="Main bg">
-          <div class="Content Stack" >
+          <div className="Content Stack" >
             <div className="Control">
               <input
                 className="Input round-s"
@@ -106,12 +114,6 @@ class App extends Component {
                 className="button button--ujarak button--border-medium button--round-s button--text-thick"
               >
                 Calculate Date
-              </button>
-              <button
-                onClick={this.addToUrl}
-                className="button button--ujarak button--border-medium button--round-s button--text-thick"
-              >
-                Save
               </button>
             </div>
             <div className="Result Flex">
