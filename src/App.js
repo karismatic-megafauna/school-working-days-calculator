@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+
+// eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
-import excludedDates from './excluded_dates.json';
+// not sure why this is working, look into just importing the weekday-calc
+
 import './App.css';
 
 class App extends Component {
@@ -11,11 +14,38 @@ class App extends Component {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
+      data: this.decodeToState(),
     }
   }
 
   getExcludedDates = () => {
-    return excludedDates.map(item => item.date);
+    return this.state.data.map(item => item.date);
+  }
+
+  getParams = () => {
+    const searchParams = window.location.search.replace('?', '');
+    return searchParams;
+  };
+
+  decodeToState = () => {
+    const params = this.getParams();
+    const decodedData = JSON.parse(window.atob(params));
+
+    return decodedData;
+  }
+
+  encodeState = (data) => {
+    const encoded = window.btoa(JSON.stringify(data));
+    return encoded;
+  }
+
+  addToUrl = () => {
+    const myNewUrlQuery = this.encodeState(this.state.data);
+
+    if (window.history.pushState) {
+      const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${myNewUrlQuery}`;
+      window.history.pushState({ path:newurl },'',newurl);
+    }
   }
 
   calculateDate = () => {
@@ -26,12 +56,16 @@ class App extends Component {
     this.setState({
       result: calculatedDate,
       resultDays: this.state.numberOfDays,
-    })
+    });
   }
 
   setNumberOfDays = ({target}) => {
     this.setState({ numberOfDays: target.value });
   }
+
+  // componentWillMount() {
+  //   this.decodeToState();
+  // }
 
   render() {
     return (
@@ -49,7 +83,7 @@ class App extends Component {
                 Reason:
               </div>
             </div>
-            {excludedDates.map(item => (
+            {this.state.data.map(item => (
               <div className="Flex Card Split">
                 <div>{item.date}</div>
                 <div>{item.reason}</div>
@@ -68,7 +102,16 @@ class App extends Component {
               />
               <button
                 onClick={this.calculateDate}
-                className="button button--ujarak button--border-medium button--round-s button--text-thick">Calculate Date</button>
+                className="button button--ujarak button--border-medium button--round-s button--text-thick"
+              >
+                Calculate Date
+              </button>
+              <button
+                onClick={this.addToUrl}
+                className="button button--ujarak button--border-medium button--round-s button--text-thick"
+              >
+                Save
+              </button>
             </div>
             <div className="Result Flex">
               { this.state.result &&
