@@ -7,11 +7,13 @@ export const Input = styled.input`
 	text-align: center;
 	font-size: 15px;
 `
+
 export const Page = styled.div`
 	font-size: 16px;
 	height: 100vh;
 	display: flex;
 `
+
 export const Sidebar = styled.div`
 	flex: 0 0 25%;
 	background: #f1f1f1;
@@ -19,19 +21,23 @@ export const Sidebar = styled.div`
 	display: flex;
 	flex-direction: column;
 `
+
 export const SidebarHeader = styled.div`
 	justify-content: space-between;
 	display: flex;
+	align-items: center;
 `
 
 export const SidebarContent = styled.div`
 	margin: 6px;
 	overflow-y: scroll;
 `
+
 export const SidebarContentHeader = styled.div`
 	justify-content: space-around;
 	display: flex;
 `
+
 export const ExcludedDate = styled.div`
 	display: flex;
 	background: #ddd;
@@ -44,6 +50,8 @@ export const Main = styled.div`
 	flex: 1 1 75%;
 	background: #7986cb;
 	color: #ECEFF1;
+	display: flex;
+	flex-direction: column;
 `
 
 export const Content = styled.div`
@@ -52,8 +60,7 @@ export const Content = styled.div`
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	height: 100%;
-	flex-directon: column;
+	height: 50%;
 `
 
 export const Control = styled.div`
@@ -75,7 +82,14 @@ export const ResultContent = styled.div`
 	align-items: center;
   justify-content: space-evenly;
 `
+
 export const Date = styled.div`
 	font-weight: bold;
 	text-align: center;
+`
+
+export const Title = styled.div`
+	height: 50%;
+	padding: 20px;
+	font-size: 24px;
 `

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
 // not sure why this is working, look into just importing the weekday-calc
@@ -18,8 +17,13 @@ import {
   ResultContent,
   Date,
   ExcludedDate,
+  Title,
 } from './styledComponents';
+// import excludedDates from './excluded_dates.json';
+import DatePicker from 'react-datepicker';
+
 import './App.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class App extends Component {
   constructor(props){
@@ -28,12 +32,30 @@ class App extends Component {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
-      data: this.decodeToState(),
+      calculatorInfo: this.decodeToState(),
+      // uncomment this if you don't want to have to read from an encoded URL
+      // calculatorInfo: excludeDates,
+      startDate: moment(),
+      todayDate: moment(),
     }
   }
 
+  handleChange = (date) => {
+    this.setState ({
+      startDate: date,
+    })
+  }
+
+  isWeekday = (date) => {
+    const day = date.day()
+    return day !== 0 && day !== 6
+  }
+
   getExcludedDates = () => {
-    return this.state.data.map(item => item.date);
+    const { calculatorInfo } = this.state;
+    return calculatorInfo
+      ? calculatorInfo.data.map(item => item.date)
+      : '';
   }
 
   getParams = () => {
@@ -44,7 +66,7 @@ class App extends Component {
   decodeToState = () => {
     const params = this.getParams();
     const decodedData = params === ""
-      ? []
+      ? undefined
       : JSON.parse(window.atob(params));
 
     return decodedData;
@@ -56,7 +78,7 @@ class App extends Component {
   }
 
   addToUrl = () => {
-    const myNewUrlQuery = this.encodeState(this.state.data);
+    const myNewUrlQuery = this.encodeState(this.state.calculatorInfo);
 
     if (window.history.pushState) {
       const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${myNewUrlQuery}`;
@@ -65,13 +87,18 @@ class App extends Component {
   }
 
   calculateDate = () => {
-    const calculatedDate = moment()
-      .addWorkdays(this.state.numberOfDays, this.getExcludedDates())
-      .format('MM-DD-YYYY');
+    const resultDays = moment().isoWeekdayCalc({
+      rangeStart: moment().format('DD MMM YYYY'),
+      rangeEnd: this.state.startDate.format('DD MMM YYYY'),
+      weekdays: [1,2,3,4,5],
+      exclusions: this.getExcludedDates()
+    });
+
+    const calculatedDate = moment(this.state.startDate).format('MM-DD-YYYY');
 
     this.setState({
       result: calculatedDate,
-      resultDays: this.state.numberOfDays,
+      resultDays: resultDays,
     });
   }
 
@@ -80,6 +107,7 @@ class App extends Component {
   }
 
   render() {
+    const { calculatorInfo } = this.state;
     return (
       <Page>
         <Sidebar>
@@ -103,20 +131,31 @@ class App extends Component {
                 Reason:
               </div>
             </SidebarContentHeader>
-            {this.state.data.length === 0
-                ? <div>No dates to exclude</div>
-                : this.state.data.map(item => (
+            { calculatorInfo.data && calculatorInfo.data.length !== 0
+                ? calculatorInfo.data.map(item => (
                   <ExcludedDate key={item.date}>
                     <div>{item.date}</div>
                     <div>{item.reason}</div>
                   </ExcludedDate>
                 ))
+                : <div>No dates to exclude</div>
             }
           </SidebarContent>
         </Sidebar>
         <Main>
+          <Title>
+            { calculatorInfo && calculatorInfo.title}
+          </Title>
           <Content>
             <Control>
+              <DatePicker
+                selected={this.state.startDate}
+                onChange={this.handleChange}
+                filterDate={this.isWeekday}
+                excludeDates={this.getExcludedDates()}
+                minDate={this.state.todayDate}
+                readOnly
+              />
               <Input
                 type="number"
                 onChange={this.setNumberOfDays}
@@ -133,8 +172,8 @@ class App extends Component {
               { this.state.result &&
                   <ResultContent>
                     <div>In <b>{this.state.resultDays}</b> working days it will be:</div>
-                    <Date>{moment(this.state.result).format('dddd, MMMM Do YYYY')}</Date>
-                    <Date>{this.state.result}</Date>
+                    <Date>{moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}</Date>
+                    <Date className="Date">{this.state.result}</Date>
                   </ResultContent>
               }
             </Result>
