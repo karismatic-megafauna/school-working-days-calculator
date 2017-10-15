@@ -4,7 +4,21 @@ import moment from 'moment';
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
 // not sure why this is working, look into just importing the weekday-calc
-
+import {
+  Page,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarContentHeader,
+  Main,
+  Content,
+  Control,
+  Input,
+  Result,
+  ResultContent,
+  Date,
+  ExcludedDate,
+} from './styledComponents';
 import './App.css';
 
 class App extends Component {
@@ -67,9 +81,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App Flex">
-        <div className="Sidebar Flex Stack">
-          <div className="Flex Split">
+      <Page>
+        <Sidebar>
+          <SidebarHeader>
             <h3>
               Excluded Dates:
             </h3>
@@ -79,32 +93,31 @@ class App extends Component {
             >
               Save
             </button>
-          </div>
-          <div className="SidebarContent">
-            <div className="Flex Split-Around">
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarContentHeader>
               <div>
                 Date:
               </div>
               <div>
                 Reason:
               </div>
-            </div>
+            </SidebarContentHeader>
             {this.state.data.length === 0
                 ? <div>No dates to exclude</div>
                 : this.state.data.map(item => (
-                  <div key={item.date} className="Flex Card Split">
+                  <ExcludedDate key={item.date}>
                     <div>{item.date}</div>
                     <div>{item.reason}</div>
-                  </div>
+                  </ExcludedDate>
                 ))
             }
-          </div>
-        </div>
-        <div className="Main bg">
-          <div className="Content Stack" >
-            <div className="Control">
-              <input
-                className="Input round-s"
+          </SidebarContent>
+        </Sidebar>
+        <Main>
+          <Content>
+            <Control>
+              <Input
                 type="number"
                 onChange={this.setNumberOfDays}
                 value={this.state.numberOfDays}
@@ -115,19 +128,19 @@ class App extends Component {
               >
                 Calculate Date
               </button>
-            </div>
-            <div className="Result Flex">
+            </Control>
+            <Result>
               { this.state.result &&
-                  <div className="ResultContent Flex Stack">
+                  <ResultContent>
                     <div>In <b>{this.state.resultDays}</b> working days it will be:</div>
-                    <div className="Date">{moment(this.state.result).format('dddd, MMMM Do YYYY')}</div>
-                    <div className="Date">{this.state.result}</div>
-                  </div>
+                    <Date>{moment(this.state.result).format('dddd, MMMM Do YYYY')}</Date>
+                    <Date>{this.state.result}</Date>
+                  </ResultContent>
               }
-            </div>
-          </div>
-        </div>
-      </div>
+            </Result>
+          </Content>
+        </Main>
+      </Page>
     );
   }
 }
