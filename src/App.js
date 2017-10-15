@@ -17,7 +17,8 @@ class App extends Component {
       result: "",
       resultDays: 0,
       startDate: moment(),
-      todayDate: moment()
+      todayDate: moment(),
+      data: this.decodeToState()
     }
   }
 
