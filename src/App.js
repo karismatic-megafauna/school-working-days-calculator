@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-/*eslint-disable no-unused-vars*/
+// eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
-/*eslint-enable no-unused-vars*/
+// eslint-disable-next-line
 import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
 
@@ -77,7 +77,7 @@ class App extends Component {
 
     this.setState({
       result: calculatedDate,
-      resultDays: this.state.numberOfDays,
+      resultDays: resultDays,
     });
   }
 
