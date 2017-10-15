@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import moment from 'moment';
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
-// eslint-disable-next-line
 import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
 
@@ -18,7 +17,8 @@ class App extends Component {
       resultDays: 0,
       startDate: moment(),
       todayDate: moment(),
-      data: this.decodeToState()
+      // data: this.decodeToState()
+      data: excludedDates
     }
   }
 
