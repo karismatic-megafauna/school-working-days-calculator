@@ -150,7 +150,7 @@ class App extends Component {
               { this.state.result &&
                   <div className="ResultContent Flex Stack">
                     <div>In <b>{this.state.resultDays}</b> working days it will be:</div>
-                    <div className="Date">{moment(this.state.result).format('dddd, MMMM Do YYYY')}</div>
+                    <div className="Date">{moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}</div>
                     <div className="Date">{this.state.result}</div>
                   </div>
               }
