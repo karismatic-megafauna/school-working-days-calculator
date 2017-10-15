@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
-// not sure why this is working, look into just importing the weekday-calc
+import excludedDates from './excluded_dates.json';
+import DatePicker from 'react-datepicker';
 
 import './App.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class App extends Component {
   constructor(props){
@@ -15,7 +16,20 @@ class App extends Component {
       result: "",
       resultDays: 0,
       calculatorInfo: this.decodeToState(),
+      startDate: moment(),
+      todayDate: moment(),
     }
+  }
+
+  handleChange = (date) => {
+    this.setState ({
+      startDate: date,
+    })
+  }
+
+  isWeekday = (date) => {
+    const day = date.day()
+    return day !== 0 && day !== 6
   }
 
   getExcludedDates = () => {
@@ -51,13 +65,18 @@ class App extends Component {
   }
 
   calculateDate = () => {
-    const calculatedDate = moment()
-      .addWorkdays(this.state.numberOfDays, this.getExcludedDates())
-      .format('MM-DD-YYYY');
+    const resultDays = moment().isoWeekdayCalc({
+      rangeStart: moment().format('DD MMM YYYY'),
+      rangeEnd: this.state.startDate.format('DD MMM YYYY'),
+      weekdays: [1,2,3,4,5],
+      exclusions: this.getExcludedDates()
+    });
+
+    const calculatedDate = moment(this.state.startDate).format('MM-DD-YYYY');
 
     this.setState({
       result: calculatedDate,
-      resultDays: this.state.numberOfDays,
+      resultDays: resultDays,
     });
   }
 
@@ -107,11 +126,13 @@ class App extends Component {
           </div>
           <div className="Content Stack" >
             <div className="Control">
-              <input
-                className="Input round-s"
-                type="number"
-                onChange={this.setNumberOfDays}
-                value={this.state.numberOfDays}
+              <DatePicker
+                selected={this.state.startDate}
+                onChange={this.handleChange}
+                filterDate={this.isWeekday}
+                excludeDates={this.getExcludedDates()}
+                minDate={this.state.todayDate}
+                readOnly
               />
               <button
                 onClick={this.calculateDate}
