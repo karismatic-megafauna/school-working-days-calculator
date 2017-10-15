@@ -1379,6 +1379,10 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
+classnames@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
 clean-css@4.1.x:
   version "4.1.9"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.1.9.tgz#35cee8ae7687a49b98034f70de00c4edd3826301"
@@ -4233,9 +4237,9 @@ moment-weekday-calc@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/moment-weekday-calc/-/moment-weekday-calc-1.1.3.tgz#8056fd8307b758935a70181a407546940f330361"
 
-moment@^2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
+moment@^2.17.1, moment@^2.19.1:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
 
 ms@2.0.0:
   version "2.0.0"
@@ -4711,6 +4715,10 @@ pluralize@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-4.0.0.tgz#59b708c1c0190a2f692f1c7618c446b052fd1762"
 
+popper.js@^1.12.5:
+  version "1.12.5"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.12.5.tgz#229e4dea01629e1f1a1e26991ffade5024220fa6"
+
 portfinder@^1.0.9:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.13.tgz#bb32ecd87c27104ae6ee44b5a3ccbf0ebb1aede9"
@@ -5061,7 +5069,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5172,6 +5180,16 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-datepicker@^0.55.0:
+  version "0.55.0"
+  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-0.55.0.tgz#5ab8be35b1ee3e512fadf97d4e96c9d14ae06594"
+  dependencies:
+    classnames "^2.2.5"
+    moment "^2.17.1"
+    prop-types "^15.5.8"
+    react-onclickoutside "^6.1.1"
+    react-popper "^0.7.2"
+
 react-dev-utils@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-4.1.0.tgz#f6f436febd3f4eeb538490319b51c875c1e35bc5"
@@ -5217,7 +5235,18 @@ react-error-overlay@^2.0.2:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
-react-scripts@1.0.14:
+react-onclickoutside@^6.1.1:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.6.0.tgz#8526d0675fad26558e9f0a400c983b813c99ef3c"
+
+react-popper@^0.7.2:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.7.3.tgz#fa2809a80fbe7ec516e9bac01d81bc47a8b5cd3b"
+  dependencies:
+    popper.js "^1.12.5"
+    prop-types "^15.5.10"
+
+react-scripts@^1.0.14:
   version "1.0.14"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-1.0.14.tgz#70fe76c9beb67b136b953e875bdfe4ad78d410d1"
   dependencies:
