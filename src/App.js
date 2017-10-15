@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-<<<<<<< HEAD
 /*eslint-disable no-unused-vars*/
 import weekdayCalc from 'moment-weekday-calc';
 /*eslint-enable no-unused-vars*/
 import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
-=======
-
-// eslint-disable-next-line
-import weekdayCalc from 'moment-weekday-calc';
-// not sure why this is working, look into just importing the weekday-calc
->>>>>>> 4c75c3b58f1a2712db810ac52d1b44492fe3db01
 
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -23,12 +16,8 @@ class App extends Component {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
-<<<<<<< HEAD
       startDate: moment(),
       todayDate: moment()
-=======
-      data: this.decodeToState(),
->>>>>>> 4c75c3b58f1a2712db810ac52d1b44492fe3db01
     }
   }
 
@@ -131,11 +120,7 @@ class App extends Component {
           </div>
         </div>
         <div className="Main bg">
-<<<<<<< HEAD
           <div className="Content Stack">
-=======
-          <div className="Content Stack" >
->>>>>>> 4c75c3b58f1a2712db810ac52d1b44492fe3db01
             <div className="Control">
               <DatePicker
               selected={this.state.startDate}
