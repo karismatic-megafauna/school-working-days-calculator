@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
-import excludedDates from './excluded_dates.json';
+// import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
 
 import './App.css';
@@ -15,10 +15,11 @@ class App extends Component {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
+      calculatorInfo: this.decodeToState(),
+      // uncomment this if you don't want to have to read from an encoded URL
+      // calculatorInfo: excludeDates,
       startDate: moment(),
       todayDate: moment(),
-      // data: this.decodeToState()
-      data: excludedDates
     }
   }
 
@@ -27,14 +28,17 @@ class App extends Component {
       startDate: date,
     })
   }
-  
+
   isWeekday = (date) => {
     const day = date.day()
     return day !== 0 && day !== 6
   }
 
   getExcludedDates = () => {
-    return this.state.data.map(item => item.date);
+    const { calculatorInfo } = this.state;
+    return calculatorInfo
+      ? calculatorInfo.data.map(item => item.date)
+      : '';
   }
 
   getParams = () => {
@@ -45,7 +49,7 @@ class App extends Component {
   decodeToState = () => {
     const params = this.getParams();
     const decodedData = params === ""
-      ? []
+      ? undefined
       : JSON.parse(window.atob(params));
 
     return decodedData;
@@ -57,7 +61,7 @@ class App extends Component {
   }
 
   addToUrl = () => {
-    const myNewUrlQuery = this.encodeState(this.state.data);
+    const myNewUrlQuery = this.encodeState(this.state.calculatorInfo);
 
     if (window.history.pushState) {
       const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${myNewUrlQuery}`;
@@ -86,10 +90,11 @@ class App extends Component {
   }
 
   render() {
+    const { calculatorInfo } = this.state;
     return (
       <div className="App Flex">
         <div className="Sidebar Flex Stack">
-          <div className="Flex Split">
+          <div className="SidebarTop Flex Split">
             <h3>
               Excluded Dates:
             </h3>
@@ -109,27 +114,30 @@ class App extends Component {
                 Reason:
               </div>
             </div>
-            {this.state.data.length === 0
+            { calculatorInfo && ( calculatorInfo.data.length === 0
                 ? <div>No dates to exclude</div>
-                : this.state.data.map(item => (
+                : calculatorInfo.data.map(item => (
                   <div key={item.date} className="Flex Card Split">
                     <div>{item.date}</div>
                     <div>{item.reason}</div>
                   </div>
                 ))
-            }
+            )}
           </div>
         </div>
-        <div className="Main bg">
-          <div className="Content Stack">
+        <div className="Main Flex Stack bg">
+          <div className="Title">
+            { calculatorInfo && calculatorInfo.title}
+          </div>
+          <div className="Content Stack" >
             <div className="Control">
               <DatePicker
-              selected={this.state.startDate}
-              onChange={this.handleChange}
-              filterDate={this.isWeekday}
-              excludeDates={this.getExcludedDates()}
-              minDate={this.state.todayDate}
-              readOnly
+                selected={this.state.startDate}
+                onChange={this.handleChange}
+                filterDate={this.isWeekday}
+                excludeDates={this.getExcludedDates()}
+                minDate={this.state.todayDate}
+                readOnly
               />
               <button
                 onClick={this.calculateDate}
