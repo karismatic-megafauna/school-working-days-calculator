@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import excluded_dates from './excluded_dates.json';
 
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
@@ -14,12 +15,12 @@ class App extends Component {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
-      data: this.decodeToState(),
+      calculatorInfo: excluded_dates,
     }
   }
 
   getExcludedDates = () => {
-    return this.state.data.map(item => item.date);
+    return this.state.calculatorInfo.data.map(item => item.date);
   }
 
   getParams = () => {
@@ -42,7 +43,7 @@ class App extends Component {
   }
 
   addToUrl = () => {
-    const myNewUrlQuery = this.encodeState(this.state.data);
+    const myNewUrlQuery = this.encodeState(this.state.calculatorInfo.data);
 
     if (window.history.pushState) {
       const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${myNewUrlQuery}`;
@@ -69,7 +70,7 @@ class App extends Component {
     return (
       <div className="App Flex">
         <div className="Sidebar Flex Stack">
-          <div className="Flex Split">
+          <div className="SidebarTop Flex Split">
             <h3>
               Excluded Dates:
             </h3>
@@ -89,9 +90,9 @@ class App extends Component {
                 Reason:
               </div>
             </div>
-            {this.state.data.length === 0
+            {this.state.calculatorInfo.data.length === 0
                 ? <div>No dates to exclude</div>
-                : this.state.data.map(item => (
+                : this.state.calculatorInfo.data.map(item => (
                   <div key={item.date} className="Flex Card Split">
                     <div>{item.date}</div>
                     <div>{item.reason}</div>
@@ -100,7 +101,8 @@ class App extends Component {
             }
           </div>
         </div>
-        <div className="Main bg">
+        <div className="Main Flex Stack bg">
+          <div className="Title">{this.state.calculatorInfo.title}</div>
           <div className="Content Stack" >
             <div className="Control">
               <input
