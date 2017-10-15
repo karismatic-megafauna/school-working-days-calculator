@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
-import excludedDates from './excluded_dates.json';
+// import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
 
 import './App.css';
@@ -16,6 +16,8 @@ class App extends Component {
       result: "",
       resultDays: 0,
       calculatorInfo: this.decodeToState(),
+      // uncomment this if you don't want to have to read from an encoded URL
+      // calculatorInfo: excludeDates,
       startDate: moment(),
       todayDate: moment(),
     }
@@ -33,7 +35,10 @@ class App extends Component {
   }
 
   getExcludedDates = () => {
-    return this.state.calculatorInfo.data.map(item => item.date);
+    const { calculatorInfo } = this.state;
+    return calculatorInfo
+      ? calculatorInfo.data.map(item => item.date)
+      : '';
   }
 
   getParams = () => {
