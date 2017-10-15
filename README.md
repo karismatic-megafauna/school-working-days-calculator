@@ -19,12 +19,17 @@ You need the following to run the application
 - Node
 - Yarn
 
+## Demo
+
+You can test the appilcation here:
+https://michaelghinrichs.github.io/school-working-days-calculator/
+
 ## How can you download and use it?
 
 Its very simple to download and use the application, just follow these steps:
 
 ```
-  $ git clone https://github.com/michaelghinrichs/school-working-days-calculator.git school-working-days-calculator
+  $ git clone https://github.com/michaelghinrichs/school-working-days-calculator.git
   $ cd school-working-days-calculator
   $ yarn
   $ yarn start
