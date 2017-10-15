@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import excluded_dates from './excluded_dates.json';
 
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
@@ -15,7 +14,7 @@ class App extends Component {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
-      calculatorInfo: excluded_dates,
+      calculatorInfo: this.decodeToState(),
     }
   }
 
@@ -31,7 +30,7 @@ class App extends Component {
   decodeToState = () => {
     const params = this.getParams();
     const decodedData = params === ""
-      ? []
+      ? undefined
       : JSON.parse(window.atob(params));
 
     return decodedData;
@@ -43,7 +42,7 @@ class App extends Component {
   }
 
   addToUrl = () => {
-    const myNewUrlQuery = this.encodeState(this.state.calculatorInfo.data);
+    const myNewUrlQuery = this.encodeState(this.state.calculatorInfo);
 
     if (window.history.pushState) {
       const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${myNewUrlQuery}`;
@@ -67,6 +66,7 @@ class App extends Component {
   }
 
   render() {
+    const { calculatorInfo } = this.state;
     return (
       <div className="App Flex">
         <div className="Sidebar Flex Stack">
@@ -90,19 +90,21 @@ class App extends Component {
                 Reason:
               </div>
             </div>
-            {this.state.calculatorInfo.data.length === 0
+            { calculatorInfo && ( calculatorInfo.data.length === 0
                 ? <div>No dates to exclude</div>
-                : this.state.calculatorInfo.data.map(item => (
+                : calculatorInfo.data.map(item => (
                   <div key={item.date} className="Flex Card Split">
                     <div>{item.date}</div>
                     <div>{item.reason}</div>
                   </div>
                 ))
-            }
+            )}
           </div>
         </div>
         <div className="Main Flex Stack bg">
-          <div className="Title">{this.state.calculatorInfo.title}</div>
+          <div className="Title">
+            { calculatorInfo && calculatorInfo.title}
+          </div>
           <div className="Content Stack" >
             <div className="Control">
               <input
