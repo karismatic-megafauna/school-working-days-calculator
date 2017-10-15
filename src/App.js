@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
-// import excludedDates from './excluded_dates.json';
+import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
 
 import './App.css';
@@ -17,10 +17,25 @@ class App extends Component {
       resultDays: 0,
       calculatorInfo: this.decodeToState(),
       // uncomment this if you don't want to have to read from an encoded URL
-      // calculatorInfo: excludeDates,
+      calculatorInfo: excludedDates,
+      newExclusionDate: moment(),
+      newExclusionReason: '',
       startDate: moment(),
       todayDate: moment(),
     }
+  }
+
+  handleAddChange = (date) => {
+    this.setState({
+      newExclusionDate: date
+    });
+  }
+
+  handleReasonChange = (event) => {
+    event.preventDefault();
+    this.setState({
+      newExclusionReason: event.target.value
+    });
   }
 
   handleChange = (date) => {
@@ -67,6 +82,33 @@ class App extends Component {
       const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${myNewUrlQuery}`;
       window.history.pushState({ path:newurl },'',newurl);
     }
+  }
+
+  addExclusionDate = () => {
+    if (this.state.newExclusionReason === '') {
+      return;
+    }
+
+    if (!this.state.newExclusionReason) {
+      return;
+    }
+
+    let newExcludedDatesData = JSON.parse(JSON.stringify(this.state.calculatorInfo.data));
+    const newExcludedDate = {
+      "date": this.state.newExclusionDate.format("MM/DD/YYYY"),
+      "reason": this.state.newExclusionReason
+    };
+    newExcludedDatesData.push(newExcludedDate);
+    newExcludedDatesData = newExcludedDatesData.sort((a, b) => {
+      return a - b;
+    });
+
+    const newExcludedDates = Object.assign({}, this.state.calculatorInfo, { data: newExcludedDatesData });
+    this.setState({
+      calculatorInfo: newExcludedDates,
+      newExclusionDate: moment(),
+      newExclusionReason: ''
+    });
   }
 
   calculateDate = () => {
@@ -128,6 +170,28 @@ class App extends Component {
         <div className="Main Flex Stack bg">
           <div className="Title">
             { calculatorInfo && calculatorInfo.title}
+          </div>
+          <div className="Content Stack">
+            <div className="Control">
+              <input 
+                type="text" 
+                value={this.state.newExclusionReason}
+                onChange={this.handleReasonChange}
+                placeholder="Enter a date exclusion reason">
+              </input>
+              &nbsp;&nbsp;
+              <DatePicker 
+                selected={this.state.newExclusionDate} 
+                onChange={this.handleAddChange} 
+                filterDate={this.isWeekday}
+                readOnly
+              />
+              <button
+                onClick={this.addExclusionDate}
+                className="button button--ujarak button--border-medium button--round-s button--text-thick">
+                Add Exclusion Date
+              </button>
+            </div>
           </div>
           <div className="Content Stack" >
             <div className="Control">
