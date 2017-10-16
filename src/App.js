@@ -3,6 +3,25 @@ import moment from 'moment';
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
 import excludedDates from './excluded_dates.json';
+// not sure why this is working, look into just importing the weekday-calc
+import {
+  Page,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarContentHeader,
+  Main,
+  Content,
+  Control,
+  Input,
+  Result,
+  ResultContent,
+  Date,
+  ExcludedDate,
+  Title,
+  ExclusionInput,
+} from './styledComponents';
+// import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
 
 import './App.css';
@@ -148,9 +167,9 @@ class App extends Component {
   render() {
     const { calculatorInfo } = this.state;
     return (
-      <div className="App Flex">
-        <div className="Sidebar Flex Stack">
-          <div className="SidebarTop Flex Split">
+      <Page>
+        <Sidebar>
+          <SidebarHeader>
             <h3>
               Excluded Dates:
             </h3>
@@ -160,40 +179,39 @@ class App extends Component {
             >
               Save
             </button>
-          </div>
-          <div className="SidebarContent">
-            <div className="Flex Split-Around">
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarContentHeader>
               <div>
                 Date:
               </div>
               <div>
                 Reason:
               </div>
-            </div>
+            </SidebarContentHeader>
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
               : calculatorInfo.data.map((item, id)=> (
-                <div key={item.date} className="Flex Card Split">
+                <ExcludedDate key={item.date}>
                   <div>{item.date}</div>
                   <div>{item.reason}</div>
                   <div onClick={() => this.removeExclusion(id)}>X</div>
-                </div>
+                </ExcludedDate>
               ))
             )}
-          </div>
-        </div>
-        <div className="Main Flex Stack bg">
-          <div className="Title">
-            { calculatorInfo && calculatorInfo.title}
-          </div>
-          <div className="Content Stack">
-            <div className="Control">
-              <input
+          </SidebarContent>
+        </Sidebar>
+        <Main>
+          <Title>
+            { calculatorInfo && calculatorInfo.title }
+          </Title>
+          <Content>
+            <Control>
+              <ExclusionInput
                 type="text"
                 value={this.state.newExclusionReason}
                 onChange={this.handleReasonChange}
                 placeholder="Enter exclusion reason"
-                className="margin"
               />
               <DatePicker
                 selected={this.state.newExclusionDate}
@@ -203,15 +221,20 @@ class App extends Component {
                 className="margin"
                 readOnly
               />
+              <Input
+                type="number"
+                onChange={this.setNumberOfDays}
+                value={this.state.numberOfDays}
+              />
               <button
                 onClick={this.addExclusionDate}
                 className="button margin button--ujarak button--border-medium button--round-s button--text-thick">
                 Add Exclusion Date
               </button>
-            </div>
-          </div>
-          <div className="Content Stack" >
-            <div className="Control">
+            </Control>
+          </Content>
+          <Content>
+            <Control>
               <input
                 type="number"
                 onChange={this.setNumberOfDays}
@@ -222,19 +245,19 @@ class App extends Component {
               >
                 Calculate Date
               </button>
-            </div>
-            <div className="Result Flex">
+            </Control>
+            <Result>
               { this.state.result &&
-                  <div className="ResultContent Flex Stack">
+                  <ResultContent>
                     <div>In <b>{this.state.resultDays}</b> working days it will be:</div>
-                    <div className="Date">{moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}</div>
-                    <div className="Date">{this.state.result}</div>
-                  </div>
+                    <Date>{moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}</Date>
+                    <Date className="Date">{this.state.result}</Date>
+                  </ResultContent>
               }
-            </div>
-          </div>
-        </div>
-      </div>
+            </Result>
+          </Content>
+        </Main>
+      </Page>
     );
   }
 }
