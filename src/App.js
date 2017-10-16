@@ -20,8 +20,6 @@ class App extends Component {
       // calculatorInfo: excludedDates,
       newExclusionDate: moment(),
       newExclusionReason: '',
-      startDate: moment(),
-      todayDate: moment(),
     }
   }
 
@@ -36,12 +34,6 @@ class App extends Component {
     this.setState({
       newExclusionReason: event.target.value
     });
-  }
-
-  handleChange = (date) => {
-    this.setState ({
-      startDate: date,
-    })
   }
 
   isWeekday = (date) => {
@@ -125,18 +117,13 @@ class App extends Component {
   }
 
   calculateDate = () => {
-    const resultDays = moment().isoWeekdayCalc({
-      rangeStart: moment().format('DD MMM YYYY'),
-      rangeEnd: this.state.startDate.format('DD MMM YYYY'),
-      weekdays: [1,2,3,4,5],
-      exclusions: this.getExcludedDates()
-    });
-
-    const calculatedDate = moment(this.state.startDate).format('MM-DD-YYYY');
+    const calculatedDate = moment()
+      .addWorkdays(this.state.numberOfDays, this.getExcludedDates())
+      .format('MM-DD-YYYY');
 
     this.setState({
       result: calculatedDate,
-      resultDays: resultDays,
+      resultDays: this.state.numberOfDays,
     });
   }
 
@@ -210,14 +197,9 @@ class App extends Component {
           </div>
           <div className="Content Stack" >
             <div className="Control">
-              <DatePicker
-                selected={this.state.startDate}
-                onChange={this.handleChange}
-                filterDate={this.isWeekday}
-                excludeDates={this.getExcludedDates()}
-                minDate={this.state.todayDate}
-                className="margin"
-                readOnly
+              <input
+                type="number"
+                onChange={this.setNumberOfDays}
               />
               <button
                 onClick={this.calculateDate}
