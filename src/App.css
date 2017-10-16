@@ -3,7 +3,6 @@
 	min-width: 150px;
 	max-width: 250px;
 	display: block;
-	margin: 1em;
 	padding: 1em 2em;
 	border: none;
 	background: none;
@@ -66,7 +65,6 @@
 
 /* Individual button styles */
 
-
 /* Ujarak */
 .button--ujarak {
 	-webkit-transition: border-color 0.4s, color 0.4s;
@@ -93,7 +91,7 @@
 	border-radius: 2px;
 }
 .button--ujarak.button--inverted::before {
-	background: #7986CB;
+	background: #7986cb;
 }
 .button--ujarak,
 .button--ujarak::before {
@@ -105,7 +103,7 @@
 	border-color: #37474f;
 }
 .button--ujarak.button--inverted:hover {
-	color: #37474F;
+	color: #37474f;
 	border-color: #fff;
 }
 .button--ujarak:hover::before {

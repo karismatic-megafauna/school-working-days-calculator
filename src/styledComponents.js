@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Input = styled.input`
 	height: 37px;
@@ -6,6 +6,10 @@ export const Input = styled.input`
 	border: none;
 	text-align: center;
 	font-size: 15px;
+`
+
+export const ExclusionInput = styled.input`
+	margin: 10px;
 `
 
 export const Page = styled.div`
@@ -49,7 +53,7 @@ export const ExcludedDate = styled.div`
 export const Main = styled.div`
 	flex: 1 1 75%;
 	background: #7986cb;
-	color: #ECEFF1;
+	color: #eceff1;
 	display: flex;
 	flex-direction: column;
 `
@@ -80,7 +84,7 @@ export const ResultContent = styled.div`
 	flex-direction: column;
 	height: 100%;
 	align-items: center;
-  justify-content: space-evenly;
+	justify-content: space-evenly;
 `
 
 export const Date = styled.div`
