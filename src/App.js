@@ -4,6 +4,7 @@ import moment from 'moment';
 import weekdayCalc from 'moment-weekday-calc';
 import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
+import Scrim from './Scrim';
 
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -20,6 +21,7 @@ class App extends Component {
       calculatorInfo: excludedDates,
       newExclusionDate: moment(),
       newExclusionReason: '',
+      isEditing: false,
     }
   }
 
@@ -65,12 +67,12 @@ class App extends Component {
       title: decodedData.title,
       data: decodedData.data.sort(this.sortDates),
     }
-  }
+  };
 
   encodeState = (data) => {
     const encoded = window.btoa(JSON.stringify(data));
     return encoded;
-  }
+  };
 
   addToUrl = () => {
     const myNewUrlQuery = this.encodeState(this.state.calculatorInfo);
@@ -79,7 +81,7 @@ class App extends Component {
       const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${myNewUrlQuery}`;
       window.history.pushState({ path:newurl },'',newurl);
     }
-  }
+  };
 
   sortDates = (a, b) => {
     if (moment(a.date).isBefore(b.date) === true) {
@@ -89,7 +91,7 @@ class App extends Component {
     } else {
       return 0;
     }
-  }
+  };
 
   addExclusionDate = () => {
     if (this.state.newExclusionReason === '') {
@@ -114,7 +116,7 @@ class App extends Component {
       newExclusionDate: moment(),
       newExclusionReason: ''
     });
-  }
+  };
 
   calculateDate = () => {
     const calculatedDate = moment()
@@ -125,11 +127,11 @@ class App extends Component {
       result: calculatedDate,
       resultDays: this.state.numberOfDays,
     });
-  }
+  };
 
   setNumberOfDays = ({target}) => {
     this.setState({ numberOfDays: target.value });
-  }
+  };
 
   removeExclusion = (idToRemove) => {
     const { calculatorInfo } = this.state;
@@ -143,6 +145,10 @@ class App extends Component {
         title: calculatorInfo.title,
       }
     });
+  };
+
+  toggleEditing = () => {
+    this.setState({ isEditing: !this.state.isEditing });
   }
 
   render() {
@@ -183,8 +189,22 @@ class App extends Component {
           </div>
         </div>
         <div className="Main Flex Stack bg">
-          <div className="Title">
-            { calculatorInfo && calculatorInfo.title}
+          <div className="Title" >
+            { this.state.isEditing ?
+              (
+                <div>
+                  <input
+                    value={calculatorInfo.title}
+                    className="aboveScrim"
+                  />
+                  <Scrim onClick={this.toggleEditing}/>
+                </div>
+              ) : (
+                <div onClick={this.toggleEditing}>
+                  { calculatorInfo && calculatorInfo.title}
+                </div>
+              )
+            }
           </div>
           <div className="Content Stack">
             <div className="Control">

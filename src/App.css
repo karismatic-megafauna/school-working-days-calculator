@@ -97,6 +97,18 @@
   margin: 10px;
 }
 
+.Scrim {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.aboveScrim {
+	z-index: 1001;
+}
+
 /* Common button styles */
 .button {
 	min-width: 150px;
