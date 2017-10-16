@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import moment from 'moment';
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
-// import excludedDates from './excluded_dates.json';
+import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
 
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
+/*******
+ * If you are having trouble getting dates, use the `excludedDates` example data
+ *******/
 class App extends Component {
   constructor(props){
     super(props)
@@ -15,9 +18,9 @@ class App extends Component {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
-      calculatorInfo: this.decodeToState(),
-      // uncomment this if you don't want to have to read from an encoded URL
-      // calculatorInfo: excludeDates,
+      // calculatorInfo: this.decodeToState(),
+      // uncomment the above line if you want to read from the encoded URL
+      calculatorInfo: excludedDates,
       startDate: moment(),
       todayDate: moment(),
     }
