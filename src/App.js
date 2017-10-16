@@ -17,7 +17,7 @@ class App extends Component {
       resultDays: 0,
       calculatorInfo: this.decodeToState(),
       // uncomment this if you don't want to have to read from an encoded URL
-      calculatorInfo: excludedDates,
+      // calculatorInfo: excludedDates,
       newExclusionDate: moment(),
       newExclusionReason: '',
       startDate: moment(),
@@ -190,18 +190,20 @@ class App extends Component {
                 type="text"
                 value={this.state.newExclusionReason}
                 onChange={this.handleReasonChange}
-                placeholder="Enter a date exclusion reason">
-              </input>
-              &nbsp;&nbsp;
+                placeholder="Enter a date exclusion reason"
+                className="margin"
+              />
               <DatePicker
                 selected={this.state.newExclusionDate}
                 onChange={this.handleAddChange}
+                excludeDates={this.getExcludedDates()}
                 filterDate={this.isWeekday}
+                className="margin"
                 readOnly
               />
               <button
                 onClick={this.addExclusionDate}
-                className="button button--ujarak button--border-medium button--round-s button--text-thick">
+                className="button margin button--ujarak button--border-medium button--round-s button--text-thick">
                 Add Exclusion Date
               </button>
             </div>
@@ -214,11 +216,12 @@ class App extends Component {
                 filterDate={this.isWeekday}
                 excludeDates={this.getExcludedDates()}
                 minDate={this.state.todayDate}
+                className="margin"
                 readOnly
               />
               <button
                 onClick={this.calculateDate}
-                className="button button--ujarak button--border-medium button--round-s button--text-thick"
+                className="button margin button--ujarak button--border-medium button--round-s button--text-thick"
               >
                 Calculate Date
               </button>
