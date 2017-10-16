@@ -170,13 +170,13 @@ class App extends Component {
               </div>
             </div>
             { calculatorInfo && ( calculatorInfo.data.length === 0
-                ? <div>No dates to exclude</div>
-                : calculatorInfo.data.map(item => (
-                  <div key={item.date} className="Flex Card Split">
-                    <div>{item.date}</div>
-                    <div>{item.reason}</div>
-                  </div>
-                ))
+              ? <div>No dates to exclude</div>
+              : calculatorInfo.data.map(item => (
+                <div key={item.date} className="Flex Card Split">
+                  <div>{item.date}</div>
+                  <div>{item.reason}</div>
+                </div>
+              ))
             )}
           </div>
         </div>
