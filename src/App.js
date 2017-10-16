@@ -56,7 +56,7 @@ class App extends Component {
   decodeToState = () => {
     const params = this.getParams();
     if (params === "") {
-      return undefined;
+      return {title: '', data: []};
     }
 
     const decodedData = JSON.parse(window.atob(params));
