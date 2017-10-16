@@ -192,7 +192,7 @@ class App extends Component {
                 type="text"
                 value={this.state.newExclusionReason}
                 onChange={this.handleReasonChange}
-                placeholder="Enter a date exclusion reason"
+                placeholder="Enter exclusion reason"
                 className="margin"
               />
               <DatePicker
