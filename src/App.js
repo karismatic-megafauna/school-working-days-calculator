@@ -17,7 +17,7 @@ class App extends Component {
       resultDays: 0,
       calculatorInfo: this.decodeToState(),
       // uncomment this if you don't want to have to read from an encoded URL
-      // calculatorInfo: excludedDates,
+      calculatorInfo: excludedDates,
       newExclusionDate: moment(),
       newExclusionReason: '',
     }
@@ -56,7 +56,7 @@ class App extends Component {
   decodeToState = () => {
     const params = this.getParams();
     if (params === "") {
-      return undefined;
+      return {title: '', data: []};
     }
 
     const decodedData = JSON.parse(window.atob(params));
@@ -131,6 +131,20 @@ class App extends Component {
     this.setState({ numberOfDays: target.value });
   }
 
+  removeExclusion = (idToRemove) => {
+    const { calculatorInfo } = this.state;
+    const dataWithRemovedItem = calculatorInfo.data.filter((_, id) => {
+      return id !== idToRemove;
+    });
+
+    this.setState({
+      calculatorInfo: {
+        data: dataWithRemovedItem,
+        title: calculatorInfo.title,
+      }
+    });
+  }
+
   render() {
     const { calculatorInfo } = this.state;
     return (
@@ -158,10 +172,11 @@ class App extends Component {
             </div>
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
-              : calculatorInfo.data.map(item => (
+              : calculatorInfo.data.map((item, id)=> (
                 <div key={item.date} className="Flex Card Split">
                   <div>{item.date}</div>
                   <div>{item.reason}</div>
+                  <div onClick={() => this.removeExclusion(id)}>X</div>
                 </div>
               ))
             )}
