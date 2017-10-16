@@ -17,11 +17,9 @@ class App extends Component {
       resultDays: 0,
       calculatorInfo: this.decodeToState(),
       // uncomment this if you don't want to have to read from an encoded URL
-      calculatorInfo: excludedDates,
+      // calculatorInfo: excludedDates,
       newExclusionDate: moment(),
       newExclusionReason: '',
-      startDate: moment(),
-      todayDate: moment(),
     }
   }
 
@@ -36,12 +34,6 @@ class App extends Component {
     this.setState({
       newExclusionReason: event.target.value
     });
-  }
-
-  handleChange = (date) => {
-    this.setState ({
-      startDate: date,
-    })
   }
 
   isWeekday = (date) => {
@@ -63,11 +55,16 @@ class App extends Component {
 
   decodeToState = () => {
     const params = this.getParams();
-    const decodedData = params === ""
-      ? undefined
-      : JSON.parse(window.atob(params));
+    if (params === "") {
+      return undefined;
+    }
 
-    return decodedData;
+    const decodedData = JSON.parse(window.atob(params));
+
+    return {
+      title: decodedData.title,
+      data: decodedData.data.sort(this.sortDates),
+    }
   }
 
   encodeState = (data) => {
@@ -84,6 +81,16 @@ class App extends Component {
     }
   }
 
+  sortDates = (a, b) => {
+    if (moment(a.date).isBefore(b.date) === true) {
+      return -1;
+    } else if(moment(a.date).isBefore(b.date) === false) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
   addExclusionDate = () => {
     if (this.state.newExclusionReason === '') {
       return;
@@ -93,15 +100,13 @@ class App extends Component {
       return;
     }
 
-    let newExcludedDatesData = JSON.parse(JSON.stringify(this.state.calculatorInfo.data));
+    let newExcludedDatesData = this.state.calculatorInfo.data;
     const newExcludedDate = {
-      "date": this.state.newExclusionDate.format("MM/DD/YYYY"),
-      "reason": this.state.newExclusionReason
+      date: this.state.newExclusionDate.format("MM/DD/YYYY"),
+      reason: this.state.newExclusionReason,
     };
     newExcludedDatesData.push(newExcludedDate);
-    newExcludedDatesData = newExcludedDatesData.sort((a, b) => {
-      return a - b;
-    });
+    newExcludedDatesData = newExcludedDatesData.sort(this.sortDates);
 
     const newExcludedDates = Object.assign({}, this.state.calculatorInfo, { data: newExcludedDatesData });
     this.setState({
@@ -112,18 +117,13 @@ class App extends Component {
   }
 
   calculateDate = () => {
-    const resultDays = moment().isoWeekdayCalc({
-      rangeStart: moment().format('DD MMM YYYY'),
-      rangeEnd: this.state.startDate.format('DD MMM YYYY'),
-      weekdays: [1,2,3,4,5],
-      exclusions: this.getExcludedDates()
-    });
-
-    const calculatedDate = moment(this.state.startDate).format('MM-DD-YYYY');
+    const calculatedDate = moment()
+      .addWorkdays(this.state.numberOfDays, this.getExcludedDates())
+      .format('MM-DD-YYYY');
 
     this.setState({
       result: calculatedDate,
-      resultDays: resultDays,
+      resultDays: this.state.numberOfDays,
     });
   }
 
@@ -157,13 +157,13 @@ class App extends Component {
               </div>
             </div>
             { calculatorInfo && ( calculatorInfo.data.length === 0
-                ? <div>No dates to exclude</div>
-                : calculatorInfo.data.map(item => (
-                  <div key={item.date} className="Flex Card Split">
-                    <div>{item.date}</div>
-                    <div>{item.reason}</div>
-                  </div>
-                ))
+              ? <div>No dates to exclude</div>
+              : calculatorInfo.data.map(item => (
+                <div key={item.date} className="Flex Card Split">
+                  <div>{item.date}</div>
+                  <div>{item.reason}</div>
+                </div>
+              ))
             )}
           </div>
         </div>
@@ -173,39 +173,37 @@ class App extends Component {
           </div>
           <div className="Content Stack">
             <div className="Control">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={this.state.newExclusionReason}
                 onChange={this.handleReasonChange}
-                placeholder="Enter a date exclusion reason">
-              </input>
-              &nbsp;&nbsp;
-              <DatePicker 
-                selected={this.state.newExclusionDate} 
-                onChange={this.handleAddChange} 
+                placeholder="Enter a date exclusion reason"
+                className="margin"
+              />
+              <DatePicker
+                selected={this.state.newExclusionDate}
+                onChange={this.handleAddChange}
+                excludeDates={this.getExcludedDates()}
                 filterDate={this.isWeekday}
+                className="margin"
                 readOnly
               />
               <button
                 onClick={this.addExclusionDate}
-                className="button button--ujarak button--border-medium button--round-s button--text-thick">
+                className="button margin button--ujarak button--border-medium button--round-s button--text-thick">
                 Add Exclusion Date
               </button>
             </div>
           </div>
           <div className="Content Stack" >
             <div className="Control">
-              <DatePicker
-                selected={this.state.startDate}
-                onChange={this.handleChange}
-                filterDate={this.isWeekday}
-                excludeDates={this.getExcludedDates()}
-                minDate={this.state.todayDate}
-                readOnly
+              <input
+                type="number"
+                onChange={this.setNumberOfDays}
               />
               <button
                 onClick={this.calculateDate}
-                className="button button--ujarak button--border-medium button--round-s button--text-thick"
+                className="button margin button--ujarak button--border-medium button--round-s button--text-thick"
               >
                 Calculate Date
               </button>
