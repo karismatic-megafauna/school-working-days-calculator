@@ -18,6 +18,8 @@ import {
   ResultContent,
   Date,
   ExcludedDate,
+  ExcludedData,
+  ExcludedRemoveButton,
   Title,
   ExclusionInput,
 } from './styledComponents';
@@ -182,20 +184,22 @@ class App extends Component {
           </SidebarHeader>
           <SidebarContent>
             <SidebarContentHeader>
-              <div>
+              <tr>
+              <th>
                 Date:
-              </div>
-              <div>
+              </th>
+              <th>
                 Reason:
-              </div>
+              </th>
+              </tr>
             </SidebarContentHeader>
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
               : calculatorInfo.data.map((item, id)=> (
                 <ExcludedDate key={item.date}>
-                  <div>{item.date}</div>
-                  <div>{item.reason}</div>
-                  <div onClick={() => this.removeExclusion(id)}>X</div>
+                  <ExcludedData>{item.date}</ExcludedData>
+                  <ExcludedData>{item.reason}</ExcludedData>
+                  <ExcludedRemoveButton onClick={() => this.removeExclusion(id)}>X</ExcludedRemoveButton>
                 </ExcludedDate>
               ))
             )}

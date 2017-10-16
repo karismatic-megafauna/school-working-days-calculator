@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 export const Input = styled.input`
 	height: 37px;
 	border-radius: 5px;
@@ -32,22 +31,28 @@ export const SidebarHeader = styled.div`
 	align-items: center;
 `
 
-export const SidebarContent = styled.div`
+export const SidebarContent = styled.table`
 	margin: 6px;
 	overflow-y: scroll;
+	border-collapse:separate;
+    border-spacing:0 5px;
 `
 
-export const SidebarContentHeader = styled.div`
-	justify-content: space-around;
-	display: flex;
+export const SidebarContentHeader = styled.thead`
 `
 
-export const ExcludedDate = styled.div`
-	display: flex;
+export const ExcludedDate = styled.tr`
 	background: #ddd;
-	padding: 12px;
 	margin: 6px 0px;
-	justify-content: space-between;
+`
+export const ExcludedData = styled.td`
+	padding:12px;
+	margin-bottom: 6px;
+`
+
+export const ExcludedRemoveButton = styled.td`
+	cursor:pointer;
+	padding: 0 10px;
 `
 
 export const Main = styled.div`
