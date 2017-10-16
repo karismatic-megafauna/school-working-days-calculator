@@ -63,11 +63,16 @@ class App extends Component {
 
   decodeToState = () => {
     const params = this.getParams();
-    const decodedData = params === ""
-      ? undefined
-      : JSON.parse(window.atob(params));
+    if (params === "") {
+      return undefined;
+    }
 
-    return decodedData;
+    const decodedData = JSON.parse(window.atob(params));
+
+    return {
+      title: decodedData.title,
+      data: decodedData.data.sort(this.sortDates),
+    }
   }
 
   encodeState = (data) => {
@@ -84,6 +89,16 @@ class App extends Component {
     }
   }
 
+  sortDates = (a, b) => {
+    if (moment(a.date).isBefore(b.date) === true) {
+      return -1;
+    } else if(moment(a.date).isBefore(b.date) === false) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
   addExclusionDate = () => {
     if (this.state.newExclusionReason === '') {
       return;
@@ -93,15 +108,13 @@ class App extends Component {
       return;
     }
 
-    let newExcludedDatesData = JSON.parse(JSON.stringify(this.state.calculatorInfo.data));
+    let newExcludedDatesData = this.state.calculatorInfo.data;
     const newExcludedDate = {
-      "date": this.state.newExclusionDate.format("MM/DD/YYYY"),
-      "reason": this.state.newExclusionReason
+      date: this.state.newExclusionDate.format("MM/DD/YYYY"),
+      reason: this.state.newExclusionReason,
     };
     newExcludedDatesData.push(newExcludedDate);
-    newExcludedDatesData = newExcludedDatesData.sort((a, b) => {
-      return a - b;
-    });
+    newExcludedDatesData = newExcludedDatesData.sort(this.sortDates);
 
     const newExcludedDates = Object.assign({}, this.state.calculatorInfo, { data: newExcludedDatesData });
     this.setState({
@@ -173,16 +186,16 @@ class App extends Component {
           </div>
           <div className="Content Stack">
             <div className="Control">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={this.state.newExclusionReason}
                 onChange={this.handleReasonChange}
                 placeholder="Enter a date exclusion reason">
               </input>
               &nbsp;&nbsp;
-              <DatePicker 
-                selected={this.state.newExclusionDate} 
-                onChange={this.handleAddChange} 
+              <DatePicker
+                selected={this.state.newExclusionDate}
+                onChange={this.handleAddChange}
                 filterDate={this.isWeekday}
                 readOnly
               />
