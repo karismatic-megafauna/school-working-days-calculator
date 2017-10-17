@@ -111,3 +111,15 @@
 	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 }
+
+/* Trash icon */
+.trash {
+	cursor: pointer;
+	visibility: hidden;
+}
+.trash-show {
+	visibility: visible;
+}
+.animated {
+	animation-duration: 0.2s;
+}
