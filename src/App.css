@@ -67,6 +67,11 @@
   font-size: 24px;
 }
 
+.TitleInput {
+  width: 50%;
+  text-align: left;
+}
+
 .Content {
   display: flex;
   flex-wrap: wrap;

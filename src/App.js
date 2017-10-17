@@ -151,6 +151,16 @@ class App extends Component {
     this.setState({ isEditing: !this.state.isEditing });
   }
 
+  handleTitleChange = ({ target }) => {
+    const { calculatorInfo } = this.state;
+    this.setState({
+      calculatorInfo: {
+        title: target.value,
+        data: calculatorInfo.data,
+      }
+    });
+  }
+
   render() {
     const { calculatorInfo } = this.state;
     return (
@@ -195,7 +205,8 @@ class App extends Component {
                 <div>
                   <input
                     value={calculatorInfo.title}
-                    className="aboveScrim"
+                    className="TitleInput aboveScrim"
+                    onChange={this.handleTitleChange}
                   />
                   <Scrim onClick={this.toggleEditing}/>
                 </div>
