@@ -45,6 +45,7 @@ Its very simple to download and use the application, just follow these steps:
 ### Any questions or issues?
 
 Feel free to join the Gitter chat room and talk to us about it :)
+
 https://gitter.im/school-working-days-calculator/Lobby#
 
 
