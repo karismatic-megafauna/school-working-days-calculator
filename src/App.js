@@ -14,6 +14,7 @@ import {
   Main,
   Content,
   Control,
+  TitleInput,
   Input,
   Result,
   ResultContent,
@@ -22,8 +23,9 @@ import {
   Title,
   ExclusionInput,
 } from './styledComponents';
-// import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
+import Scrim from './Scrim';
+import Button from './Button';
 
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -41,6 +43,7 @@ class App extends Component {
       calculatorInfo: excludedDates,
       newExclusionDate: moment(),
       newExclusionReason: '',
+      isEditing: false,
     }
   }
 
@@ -86,12 +89,12 @@ class App extends Component {
       title: decodedData.title,
       data: decodedData.data.sort(this.sortDates),
     }
-  }
+  };
 
   encodeState = (data) => {
     const encoded = window.btoa(JSON.stringify(data));
     return encoded;
-  }
+  };
 
   addToUrl = () => {
     const myNewUrlQuery = this.encodeState(this.state.calculatorInfo);
@@ -100,7 +103,7 @@ class App extends Component {
       const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${myNewUrlQuery}`;
       window.history.pushState({ path:newurl },'',newurl);
     }
-  }
+  };
 
   sortDates = (a, b) => {
     if (moment(a.date).isBefore(b.date) === true) {
@@ -110,7 +113,7 @@ class App extends Component {
     } else {
       return 0;
     }
-  }
+  };
 
   addExclusionDate = () => {
     if (this.state.newExclusionReason === '') {
@@ -135,22 +138,23 @@ class App extends Component {
       newExclusionDate: moment(),
       newExclusionReason: ''
     });
-  }
+  };
 
-  calculateDate = () => {
+  calculateDate = ({target}) => {
     const calculatedDate = moment()
-      .addWorkdays(this.state.numberOfDays, this.getExcludedDates())
+      .addWorkdays(target.value, this.getExcludedDates())
       .format('MM-DD-YYYY');
 
     this.setState({
       result: calculatedDate,
-      resultDays: this.state.numberOfDays,
+      resultDays: target.value,
+      numberOfDays: target.value,
     });
-  }
+  };
 
   setNumberOfDays = ({target}) => {
     this.setState({ numberOfDays: target.value });
-  }
+  };
 
   removeExclusion = (idToRemove) => {
     const { calculatorInfo } = this.state;
@@ -162,6 +166,20 @@ class App extends Component {
       calculatorInfo: {
         data: dataWithRemovedItem,
         title: calculatorInfo.title,
+      }
+    });
+  };
+
+  toggleEditing = () => {
+    this.setState({ isEditing: !this.state.isEditing });
+  }
+
+  handleTitleChange = ({ target }) => {
+    const { calculatorInfo } = this.state;
+    this.setState({
+      calculatorInfo: {
+        title: target.value,
+        data: calculatorInfo.data,
       }
     });
   }
@@ -187,12 +205,11 @@ class App extends Component {
             <h3>
               Excluded Dates:
             </h3>
-            <button
+            <Button
               onClick={this.addToUrl}
-              className="button button--ujarak button--border-medium button--round-s button--text-thick"
             >
               Save
-            </button>
+            </Button>
           </SidebarHeader>
           <SidebarContent>
             <SidebarContentHeader>
@@ -224,9 +241,48 @@ class App extends Component {
         </Sidebar>
         <Main>
           <Title>
-            { calculatorInfo && calculatorInfo.title }
+            { this.state.isEditing ?
+              (
+                <div>
+                  <TitleInput
+                    value={calculatorInfo.title}
+                    onChange={this.handleTitleChange}
+                  />
+                  <Scrim onClick={this.toggleEditing} />
+                </div>
+              ) : (
+                <div onClick={this.toggleEditing}>
+                  { calculatorInfo && calculatorInfo.title}
+                </div>
+              )
+            }
           </Title>
           <Content>
+            <Control>
+              <div>In</div>
+              <div className="margin">
+                <Input
+                  type="number"
+                  onChange={this.calculateDate}
+                />
+              </div>
+              <div>working days it will be:</div>
+            </Control>
+            <Result>
+              { this.state.result &&
+                  <ResultContent>
+                    <Date>
+                      {moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}
+                    </Date>
+                    <Date className="Date">{this.state.result}</Date>
+                  </ResultContent>
+              }
+            </Result>
+          </Content>
+          <Content>
+            <Control>
+              Add a New Date to Exclude
+            </Control>
             <Control>
               <ExclusionInput
                 type="text"
@@ -242,40 +298,12 @@ class App extends Component {
                 className="margin"
                 readOnly
               />
-              <Input
-                type="number"
-                onChange={this.setNumberOfDays}
-                value={this.state.numberOfDays}
-              />
-              <button
+              <Button
                 onClick={this.addExclusionDate}
-                className="button margin button--ujarak button--border-medium button--round-s button--text-thick">
-                Add Exclusion Date
-              </button>
-            </Control>
-          </Content>
-          <Content>
-            <Control>
-              <input
-                type="number"
-                onChange={this.setNumberOfDays}
-              />
-              <button
-                onClick={this.calculateDate}
-                className="button margin button--ujarak button--border-medium button--round-s button--text-thick"
               >
-                Calculate Date
-              </button>
+                Add Exclusion Date
+              </Button>
             </Control>
-            <Result>
-              { this.state.result &&
-                  <ResultContent>
-                    <div>In <b>{this.state.resultDays}</b> working days it will be:</div>
-                    <Date>{moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}</Date>
-                    <Date className="Date">{this.state.result}</Date>
-                  </ResultContent>
-              }
-            </Result>
           </Content>
         </Main>
       </Page>

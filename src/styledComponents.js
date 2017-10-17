@@ -1,11 +1,19 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+
+export const TitleInput = styled.input`
+  width: 50%;
+  text-align: left;
+  z-index: 10001;
+  position: relative;
+`
 
 export const Input = styled.input`
-	height: 37px;
-	border-radius: 5px;
-	border: none;
-	text-align: center;
-	font-size: 15px;
+  height: 37px;
+  border-radius: 2px;
+  width: 60px;
+  border: none;
+  text-align: center;
+  font-size: 15px;
 `
 
 export const ExclusionInput = styled.input`
