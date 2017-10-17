@@ -11,17 +11,17 @@ const Button = ({ onClick, className, children }) => (
 );
 
 const StyledButton = styled(Button)`
-	background: none;
-	border: 2px solid;
-	color: inherit;
-	display: block;
-	font-weight: 600;
-	max-width: 250px;
-	min-width: 150px;
-	padding: 1em 2em;
-	position: relative;
-	transition: border-color 0.4s, color 0.4s;
-	z-index: 1;
+  background: none;
+  border: 2px solid;
+  color: inherit;
+  display: block;
+  font-weight: 600;
+  max-width: 250px;
+  min-width: 150px;
+  padding: 1em 2em;
+  position: relative;
+  transition: border-color 0.4s, color 0.4s;
+  z-index: 1;
   border-radius: 2px;
 
   &:hover {
