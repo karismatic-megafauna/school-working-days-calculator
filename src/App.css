@@ -3,3 +3,15 @@
 .margin {
   margin: 10px;
 }
+
+/* Trash icon */
+.trash {
+	cursor: pointer;
+	visibility: hidden;
+}
+.trash-show {
+	visibility: visible;
+}
+.animated {
+	animation-duration: 0.2s;
+}

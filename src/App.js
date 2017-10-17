@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import FontAwesome from 'react-fontawesome';
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
 import excludedDates from './excluded_dates.json';
@@ -37,6 +38,7 @@ class App extends Component {
       result: "",
       resultDays: 0,
       calculatorInfo: this.decodeToState(),
+      hoverDate: '',
       // uncomment this if you don't want to have to read from an encoded URL
       calculatorInfo: excludedDates,
       newExclusionDate: moment(),
@@ -182,6 +184,18 @@ class App extends Component {
     });
   }
 
+  updateHoverDate = (date, isEntering) => {
+    if (isEntering && this.state.hoverDate !== date) {
+      this.setState({
+        hoverDate: date
+      });
+    } else if (this.state.hoverDate === date) {
+      this.setState({
+        hoverDate: ''
+      });
+    }
+  }
+
   render() {
     const { calculatorInfo } = this.state;
     return (
@@ -209,10 +223,17 @@ class App extends Component {
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
               : calculatorInfo.data.map((item, id)=> (
-                <ExcludedDate key={item.date}>
+                <ExcludedDate 
+                  key={item.date}
+                  onMouseEnter={this.updateHoverDate.bind(this, item.date, true)}
+                  onMouseLeave={this.updateHoverDate.bind(this, item.date, false)}>
                   <div>{item.date}</div>
                   <div>{item.reason}</div>
-                  <div onClick={() => this.removeExclusion(id)}>X</div>
+                  <div
+                    className={["trash animated", this.state.hoverDate === item.date ? "trash-show rotateIn" : ""].join(" ")}
+                    onClick={() => this.removeExclusion(id)}>
+                    <FontAwesome name="trash"/>
+                  </div>
                 </ExcludedDate>
               ))
             )}
