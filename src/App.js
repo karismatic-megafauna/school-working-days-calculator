@@ -260,6 +260,9 @@ class App extends Component {
           </Content>
           <Content>
             <Control>
+              Add a New Date to Exclude
+            </Control>
+            <Control>
               <ExclusionInput
                 type="text"
                 value={this.state.newExclusionReason}
