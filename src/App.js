@@ -10,6 +10,7 @@ import {
   SidebarHeader,
   SidebarContent,
   SidebarContentHeader,
+  ScrollContainer,
   Main,
   Content,
   Control,
@@ -171,6 +172,7 @@ class App extends Component {
     return (
       <Page>
         <Sidebar>
+          <div>
           <SidebarHeader>
             <h3>
               Excluded Dates:
@@ -182,6 +184,8 @@ class App extends Component {
               Save
             </button>
           </SidebarHeader>
+          </div>
+          <ScrollContainer>
           <SidebarContent>
             <SidebarContentHeader>
               <tr>
@@ -193,6 +197,7 @@ class App extends Component {
               </th>
               </tr>
             </SidebarContentHeader>
+            
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
               : calculatorInfo.data.map((item, id)=> (
@@ -204,6 +209,7 @@ class App extends Component {
               ))
             )}
           </SidebarContent>
+          </ScrollContainer>
         </Sidebar>
         <Main>
           <Title>

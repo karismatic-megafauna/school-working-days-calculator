@@ -30,10 +30,13 @@ export const SidebarHeader = styled.div`
 	display: flex;
 	align-items: center;
 `
+export const ScrollContainer = styled.div`
+	overflow-y: scroll;
+`
 
 export const SidebarContent = styled.table`
-	margin: 6px;
-	overflow-y: scroll;
+	width: 100%;
+	
 	border-collapse:separate;
     border-spacing:0 5px;
 `
