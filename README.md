@@ -42,6 +42,12 @@ Its very simple to download and use the application, just follow these steps:
 - Star our GitHub repo
 - Create pull requests, submit bugs, suggest new features or documentation updates
 
+### Any questions or issues?
+
+Feel free to join the Gitter chat room and talk to us about it :)
+https://gitter.im/school-working-days-calculator/Lobby#
+
+
 ## License
 
 This project has an MIT license, because we <3 open source.
