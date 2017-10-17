@@ -9,6 +9,7 @@
     "react": "^16.0.0",
     "react-datepicker": "^0.55.0",
     "react-dom": "^16.0.0",
+    "react-fontawesome": "^1.6.1",
     "react-scripts": "^1.0.14",
     "styled-components": "^2.2.1"
   },
