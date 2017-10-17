@@ -13,6 +13,7 @@ import {
   Main,
   Content,
   Control,
+  TitleInput,
   Input,
   Result,
   ResultContent,
@@ -21,9 +22,9 @@ import {
   Title,
   ExclusionInput,
 } from './styledComponents';
-// import excludedDates from './excluded_dates.json';
 import DatePicker from 'react-datepicker';
 import Scrim from './Scrim';
+import Button from './Button';
 
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -137,14 +138,15 @@ class App extends Component {
     });
   };
 
-  calculateDate = () => {
+  calculateDate = ({target}) => {
     const calculatedDate = moment()
-      .addWorkdays(this.state.numberOfDays, this.getExcludedDates())
+      .addWorkdays(target.value, this.getExcludedDates())
       .format('MM-DD-YYYY');
 
     this.setState({
       result: calculatedDate,
-      resultDays: this.state.numberOfDays,
+      resultDays: target.value,
+      numberOfDays: target.value,
     });
   };
 
@@ -189,12 +191,11 @@ class App extends Component {
             <h3>
               Excluded Dates:
             </h3>
-            <button
+            <Button
               onClick={this.addToUrl}
-              className="button button--ujarak button--border-medium button--round-s button--text-thick"
             >
               Save
-            </button>
+            </Button>
           </SidebarHeader>
           <SidebarContent>
             <SidebarContentHeader>
@@ -222,12 +223,11 @@ class App extends Component {
             { this.state.isEditing ?
               (
                 <div>
-                  <Input
+                  <TitleInput
                     value={calculatorInfo.title}
-                    className="TitleInput aboveScrim"
                     onChange={this.handleTitleChange}
                   />
-                  <Scrim onClick={this.toggleEditing}/>
+                  <Scrim onClick={this.toggleEditing} />
                 </div>
               ) : (
                 <div onClick={this.toggleEditing}>
@@ -238,22 +238,21 @@ class App extends Component {
           </Title>
           <Content>
             <Control>
-              <Input
-                type="number"
-                onChange={this.setNumberOfDays}
-              />
-              <button
-                onClick={this.calculateDate}
-                className="button margin button--ujarak button--border-medium button--round-s button--text-thick"
-              >
-                Calculate Date
-              </button>
+              <div>In</div>
+              <div className="margin">
+                <Input
+                  type="number"
+                  onChange={this.calculateDate}
+                />
+              </div>
+              <div>working days it will be:</div>
             </Control>
             <Result>
               { this.state.result &&
                   <ResultContent>
-                    <div>In <b>{this.state.resultDays}</b> working days it will be:</div>
-                    <Date>{moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}</Date>
+                    <Date>
+                      {moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}
+                    </Date>
                     <Date className="Date">{this.state.result}</Date>
                   </ResultContent>
               }
@@ -275,11 +274,11 @@ class App extends Component {
                 className="margin"
                 readOnly
               />
-              <button
+              <Button
                 onClick={this.addExclusionDate}
-                className="button margin button--ujarak button--border-medium button--round-s button--text-thick">
+              >
                 Add Exclusion Date
-              </button>
+              </Button>
             </Control>
           </Content>
         </Main>

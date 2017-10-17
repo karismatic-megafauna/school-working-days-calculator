@@ -1,26 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './App.css';
+import styled from 'styled-components';
 
-const Scrim = ({ onClick, zIndex, style, componentClass: Component }) => (
-  <Component
-    onClick={onClick}
-    style={{ zIndex, ...style }}
-    className="Scrim"
-  />
+const Scrim = ({ onClick, className }) => (
+  <div className={className} onClick={onClick} />
 );
 
-Scrim.propTypes = {
-  onClick: PropTypes.func,
-  style: PropTypes.object,
-  componentClass: PropTypes.string,
-  zIndex: PropTypes.number,
-};
+const StyledScrim = styled(Scrim)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+`;
 
-Scrim.defaultProps = {
-  componentClass: 'div',
-  zIndex: 10000,
-  style: {},
-};
-
-export default Scrim;
+export default StyledScrim;
