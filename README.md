@@ -7,8 +7,9 @@ Additionally, there are holidays to take into account as well as days particular
 ### In this version this application can do
 
 - [x] Calculate the number of "working days" from today (weekdays excluding weekends)
-- [ ] Customize any additional days you would like to exclude
+- [x] Customize any additional days you would like to exclude
 - [x] Save your excluded days and share them with your co-workers via a url
+- [x] Change the title of your calculator
 
 ![home dashboard](prints/home.png)
 
