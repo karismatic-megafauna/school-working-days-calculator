@@ -11,7 +11,7 @@ Additionally, there are holidays to take into account as well as days particular
 - [x] Save your excluded days and share them with your co-workers via a url
 - [x] Change the title of your calculator
 
-![home dashboard](prints/home.png)
+![home dashboard](prints/ui_screen.png)
 
 ## Requirements
 
