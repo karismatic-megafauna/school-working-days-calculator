@@ -135,7 +135,6 @@ class App extends Component {
     const newExcludedDates = Object.assign({}, this.state.calculatorInfo, { data: newExcludedDatesData });
     this.setState({
       calculatorInfo: newExcludedDates,
-      newExclusionDate: moment(),
       newExclusionReason: ''
     });
   };
@@ -223,7 +222,7 @@ class App extends Component {
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
               : calculatorInfo.data.map((item, id)=> (
-                <ExcludedDate 
+                <ExcludedDate
                   key={item.date}
                   onMouseEnter={this.updateHoverDate.bind(this, item.date, true)}
                   onMouseLeave={this.updateHoverDate.bind(this, item.date, false)}>
