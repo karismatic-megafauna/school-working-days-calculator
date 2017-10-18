@@ -7,10 +7,11 @@ Additionally, there are holidays to take into account as well as days particular
 ### In this version this application can do
 
 - [x] Calculate the number of "working days" from today (weekdays excluding weekends)
-- [ ] Customize any additional days you would like to exclude
+- [x] Customize any additional days you would like to exclude
 - [x] Save your excluded days and share them with your co-workers via a url
+- [x] Change the title of your calculator
 
-![home dashboard](prints/home.png)
+![home dashboard](prints/ui_screen.png)
 
 ## Requirements
 
@@ -41,6 +42,13 @@ Its very simple to download and use the application, just follow these steps:
 
 - Star our GitHub repo
 - Create pull requests, submit bugs, suggest new features or documentation updates
+
+### Any questions or issues?
+
+Feel free to join the Gitter chat room and talk to us about it :)
+
+https://gitter.im/school-working-days-calculator/Lobby#
+
 
 ## License
 
