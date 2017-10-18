@@ -22,5 +22,10 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://michaelghinrichs.github.io/school-working-days-calculator"
+  "homepage": "https://michaelghinrichs.github.io/school-working-days-calculator",
+  "devDependencies": {
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
+    "raf": "^3.4.0"
+  }
 }
