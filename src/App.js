@@ -37,7 +37,7 @@ class App extends Component {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
-      calculatorInfo: this.decodeToState(),
+      urlParams: this.decodeToState(),
       hoverDate: '',
       // uncomment this if you don't want to have to read from an encoded URL
       calculatorInfo: excludedDates,
@@ -74,6 +74,7 @@ class App extends Component {
 
   getParams = () => {
     const searchParams = window.location.search.replace('?', '');
+    console.log(searchParams);
     return searchParams;
   };
 
