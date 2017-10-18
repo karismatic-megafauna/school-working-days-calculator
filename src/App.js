@@ -236,13 +236,13 @@ class App extends Component {
                   key={item.date}
                   onMouseEnter={this.updateHoverDate.bind(this, item.date, true)}
                   onMouseLeave={this.updateHoverDate.bind(this, item.date, false)}>
-                  <td>{item.date}</td>
-                  <td>{item.reason}</td>
-                  <td><div
+                  <ExcludedData>{item.date}</ExcludedData>
+                  <ExcludedData>{item.reason}</ExcludedData>
+                  <ExcludedData><div
                     className={["trash animated", this.state.hoverDate === item.date ? "trash-show rotateIn" : ""].join(" ")}
                     onClick={() => this.removeExclusion(id)}>
                     <FontAwesome name="trash"/>
-                  </div></td>
+                  </div></ExcludedData>
                 </ExcludedDate>
               ))
             )}
