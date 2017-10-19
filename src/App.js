@@ -138,7 +138,8 @@ class App extends Component {
     const newExcludedDates = Object.assign({}, this.state.calculatorInfo, { data: newExcludedDatesData });
     this.setState({
       calculatorInfo: newExcludedDates,
-      newExclusionReason: ''
+      newExclusionReason: '',
+      newExclusionDate: moment(this.state.newExclusionDate).add(1, 'day'),
     });
   };
 
