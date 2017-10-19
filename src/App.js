@@ -85,7 +85,7 @@ class App extends Component {
   decodeToState = () => {
     const params = this.getParams();
     if (params === "") {
-      return {title: '', data: []};
+      return {title: 'Working Day Calculator', data: []};
     }
 
     const decodedData = JSON.parse(window.atob(params));
@@ -202,6 +202,7 @@ class App extends Component {
 
   render() {
     const { calculatorInfo } = this.state;
+    document.title = this.state.calculatorInfo.title;
     return (
       <Page>
         <Sidebar>
@@ -229,7 +230,6 @@ class App extends Component {
                 </th>
               </tr>
             </SidebarContentHeader>
-
             <SidebarContentBody>
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
@@ -266,6 +266,7 @@ class App extends Component {
               ) : (
                 <div onClick={this.toggleEditing}>
                   { calculatorInfo && calculatorInfo.title}
+                  <FontAwesome className="editIcon" name="edit"/>
                 </div>
               )
             }
