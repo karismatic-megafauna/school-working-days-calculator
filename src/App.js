@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 // eslint-disable-next-line
 import weekdayCalc from 'moment-weekday-calc';
@@ -30,9 +31,11 @@ import {
 import DatePicker from 'react-datepicker';
 import Scrim from './Scrim';
 import Button from './Button';
+import Contributors from './Contributor.js';
 
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css';
+
 
 class App extends Component {
   constructor(props){
@@ -253,6 +256,18 @@ class App extends Component {
           </ScrollContainer>
         </Sidebar>
         <Main>
+        <BrowserRouter>
+          <div class='align-link'>
+            <Switch>
+              <Route exact path="/" />
+              <Route path="/contributors" component={Contributors} />
+            </Switch>
+            <Link 
+              to="/contributors"
+              >Contributors
+            </Link>
+          </div>
+        </BrowserRouter>
           <Title>
             { this.state.isEditing ?
               (
