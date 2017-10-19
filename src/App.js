@@ -40,7 +40,6 @@ class App extends Component {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
-      calculatorInfo: this.decodeToState(),
       hoverDate: '',
       // uncomment this if you don't want to have to read from an encoded URL
       calculatorInfo: excludedDates,
