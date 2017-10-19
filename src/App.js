@@ -54,7 +54,7 @@ class App extends Component {
       isEditing: false,
     }
 
-    toastr.options.positionClass = "toast-bottom-center";
+    toastr.options.positionClass = "toast-bottom-right";
   }
 
   handleAddChange = (date) => {
@@ -127,7 +127,7 @@ class App extends Component {
 
   addExclusionDate = () => {
     if (!this.state.newExclusionReason) {
-      toastr.error("Empty exclusion reason");
+      toastr.error("Add a reason why this date is excluded!");
       return;
     }
 
@@ -170,12 +170,18 @@ class App extends Component {
       return id !== idToRemove;
     });
 
+    const itemToRemove = calculatorInfo.data.find((_, id) => {
+      return id === idToRemove;
+    });
+
     this.setState({
       calculatorInfo: {
         data: dataWithRemovedItem,
         title: calculatorInfo.title,
       }
     });
+
+    toastr.success(`Exclusion date "${itemToRemove.date}" was successfully removed`);
   };
 
   toggleEditing = () => {
