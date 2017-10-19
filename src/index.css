@@ -11,3 +11,8 @@ input {
   text-align: center;
   font-size: 16px;
 }
+
+.align-link {
+	text-align: center;
+	margin-top: 10px;
+}
