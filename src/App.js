@@ -290,7 +290,7 @@ class App extends Component {
               { this.state.result &&
                   <ResultContent>
                     <Date>
-                      {moment(this.state.result, 'YYYY-MM-DD').format('dddd, MMMM Do YYYY')}
+                      {moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}
                     </Date>
                     <Date className="Date">{this.state.result}</Date>
                   </ResultContent>
