@@ -227,7 +227,7 @@ class App extends Component {
               </th>
               </tr>
             </SidebarContentHeader>
-            
+
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
               : calculatorInfo.data.map((item, id)=> (
@@ -262,6 +262,8 @@ class App extends Component {
               ) : (
                 <div onClick={this.toggleEditing}>
                   { calculatorInfo && calculatorInfo.title}
+
+                  <FontAwesome className="editIcon" name="edit"/>
                 </div>
               )
             }

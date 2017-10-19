@@ -14,3 +14,8 @@
 .animated {
 	animation-duration: 0.2s;
 }
+
+.editIcon {
+  cursor: pointer;
+  padding: 5px;
+}
