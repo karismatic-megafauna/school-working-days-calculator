@@ -53,6 +53,9 @@ export const SidebarContent = styled.table`
 export const SidebarContentHeader = styled.thead`
 `
 
+export const SidebarContentBody = styled.tbody`
+`
+
 export const ExcludedDate = styled.tr`
 	background: #ddd;
 	margin: 6px 0px;
