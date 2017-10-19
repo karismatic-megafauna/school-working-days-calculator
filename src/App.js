@@ -11,6 +11,7 @@ import {
   SidebarHeader,
   SidebarContent,
   SidebarContentHeader,
+  SidebarContentBody,
   ScrollContainer,
   Main,
   Content,
@@ -22,7 +23,7 @@ import {
   Date,
   ExcludedDate,
   ExcludedData,
-  ExcludedRemoveButton,
+  // ExcludedRemoveButton, // Not used now
   Title,
   ExclusionInput,
 } from './styledComponents';
@@ -36,14 +37,15 @@ import 'react-datepicker/dist/react-datepicker.css';
 class App extends Component {
   constructor(props){
     super(props)
+    // set this to <false> if you don't want to have to read from an encoded URL, <true> instead
+    const readFromEncodedUrl = false;
     this.state = {
       numberOfDays: 0,
       result: "",
       resultDays: 0,
-      calculatorInfo: this.decodeToState(),
+      calculatorInfo: readFromEncodedUrl ? this.decodeToState() : excludedDates,
       hoverDate: '',
       // uncomment this if you don't want to have to read from an encoded URL
-      calculatorInfo: excludedDates,
       newExclusionDate: moment(),
       newExclusionReason: '',
       isEditing: false,
@@ -220,14 +222,15 @@ class App extends Component {
           <SidebarContent>
             <SidebarContentHeader>
               <tr>
-              <th>
-                Date:
-              </th>
-              <th>
-                Reason:
-              </th>
+                <th>
+                  Date:
+                </th>
+                <th>
+                  Reason:
+                </th>
               </tr>
             </SidebarContentHeader>
+            <SidebarContentBody>
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
               : calculatorInfo.data.map((item, id)=> (
@@ -245,6 +248,7 @@ class App extends Component {
                 </ExcludedDate>
               ))
             )}
+            </SidebarContentBody>
           </SidebarContent>
           </ScrollContainer>
         </Sidebar>
