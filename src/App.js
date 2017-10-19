@@ -263,6 +263,7 @@ class App extends Component {
               ) : (
                 <div onClick={this.toggleEditing}>
                   { calculatorInfo && calculatorInfo.title}
+                  &nbsp; <i className="fa fa-edit"></i>
                 </div>
               )
             }
