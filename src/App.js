@@ -129,7 +129,7 @@ class App extends Component {
 
     let newExcludedDatesData = this.state.calculatorInfo.data;
     const newExcludedDate = {
-      date: this.state.newExclusionDate.format("MM/DD/YYYY"),
+      date: this.state.newExclusionDate.format("YYYY-MM-DD"),
       reason: this.state.newExclusionReason,
     };
     newExcludedDatesData.push(newExcludedDate);
@@ -235,7 +235,7 @@ class App extends Component {
                   key={item.date}
                   onMouseEnter={this.updateHoverDate.bind(this, item.date, true)}
                   onMouseLeave={this.updateHoverDate.bind(this, item.date, false)}>
-                  <ExcludedData>{item.date}</ExcludedData>
+                  <ExcludedData>{moment(item.date).format("MM/DD/YYYY")}</ExcludedData>
                   <ExcludedData>{item.reason}</ExcludedData>
                   <ExcludedData><div
                     className={["trash animated", this.state.hoverDate === item.date ? "trash-show rotateIn" : ""].join(" ")}
@@ -281,7 +281,7 @@ class App extends Component {
               { this.state.result &&
                   <ResultContent>
                     <Date>
-                      {moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}
+                      {moment(this.state.result, 'YYYY-MM-DD').format('dddd, MMMM Do YYYY')}
                     </Date>
                     <Date className="Date">{this.state.result}</Date>
                   </ResultContent>
