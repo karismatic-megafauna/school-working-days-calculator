@@ -1,14 +1,14 @@
 # School Working Days Calculator
 
-Often people would like to be able to calculate the number of "working days" from now. For instance, 10 working days is often 14 regular days.
+Often people would like to be able to calculate the number of "working days" from the current date. For instance, 10 working days is often 14 regular days.
 
 Additionally, there are holidays to take into account as well as days particular to your organization.
 
 ### In this version this application can do
 
-- [x] Calculate the number of "working days" from today (weekdays excluding weekends)
+- [x] Calculate the number of "working days" from the current date (weekdays excluding weekends)
 - [x] Customize any additional days you would like to exclude
-- [x] Save your excluded days and share them with your co-workers via a url
+- [x] Save your excluded days and share them with your co-workers using a url
 - [x] Change the title of your calculator
 
 ![home dashboard](prints/ui_screen.png)
