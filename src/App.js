@@ -11,6 +11,7 @@ import {
   SidebarHeader,
   SidebarContent,
   SidebarContentHeader,
+  ScrollContainer,
   Main,
   Content,
   Control,
@@ -20,6 +21,8 @@ import {
   ResultContent,
   Date,
   ExcludedDate,
+  ExcludedData,
+  ExcludedRemoveButton,
   Title,
   ExclusionInput,
 } from './styledComponents';
@@ -200,6 +203,7 @@ class App extends Component {
     return (
       <Page>
         <Sidebar>
+          <div>
           <SidebarHeader>
             <h3>
               Excluded Dates:
@@ -210,15 +214,20 @@ class App extends Component {
               Save
             </Button>
           </SidebarHeader>
+          </div>
+          <ScrollContainer>
           <SidebarContent>
             <SidebarContentHeader>
-              <div>
+              <tr>
+              <th>
                 Date:
-              </div>
-              <div>
+              </th>
+              <th>
                 Reason:
-              </div>
+              </th>
+              </tr>
             </SidebarContentHeader>
+            
             { calculatorInfo && ( calculatorInfo.data.length === 0
               ? <div>No dates to exclude</div>
               : calculatorInfo.data.map((item, id)=> (
@@ -226,17 +235,18 @@ class App extends Component {
                   key={item.date}
                   onMouseEnter={this.updateHoverDate.bind(this, item.date, true)}
                   onMouseLeave={this.updateHoverDate.bind(this, item.date, false)}>
-                  <div>{item.date}</div>
-                  <div>{item.reason}</div>
-                  <div
+                  <ExcludedData>{item.date}</ExcludedData>
+                  <ExcludedData>{item.reason}</ExcludedData>
+                  <ExcludedData><div
                     className={["trash animated", this.state.hoverDate === item.date ? "trash-show rotateIn" : ""].join(" ")}
                     onClick={() => this.removeExclusion(id)}>
                     <FontAwesome name="trash"/>
-                  </div>
+                  </div></ExcludedData>
                 </ExcludedDate>
               ))
             )}
           </SidebarContent>
+          </ScrollContainer>
         </Sidebar>
         <Main>
           <Title>

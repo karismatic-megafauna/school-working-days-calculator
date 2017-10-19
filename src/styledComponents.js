@@ -39,23 +39,32 @@ export const SidebarHeader = styled.div`
 	display: flex;
 	align-items: center;
 `
-
-export const SidebarContent = styled.div`
-	margin: 6px;
+export const ScrollContainer = styled.div`
 	overflow-y: scroll;
 `
 
-export const SidebarContentHeader = styled.div`
-	justify-content: space-around;
-	display: flex;
+export const SidebarContent = styled.table`
+	width: 100%;
+	
+	border-collapse:separate;
+    border-spacing:0 5px;
 `
 
-export const ExcludedDate = styled.div`
-	display: flex;
+export const SidebarContentHeader = styled.thead`
+`
+
+export const ExcludedDate = styled.tr`
 	background: #ddd;
-	padding: 12px;
 	margin: 6px 0px;
-	justify-content: space-between;
+`
+export const ExcludedData = styled.td`
+	padding:12px;
+	margin-bottom: 6px;
+`
+
+export const ExcludedRemoveButton = styled.td`
+	cursor:pointer;
+	padding: 0 10px;
 `
 
 export const Main = styled.div`
