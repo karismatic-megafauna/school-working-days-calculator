@@ -34,6 +34,9 @@ import Button from './Button';
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import 'toastr/build/toastr.min.css';
+import toastr from 'toastr';
+
 class App extends Component {
   constructor(props){
     super(props)
@@ -50,6 +53,8 @@ class App extends Component {
       newExclusionReason: '',
       isEditing: false,
     }
+
+    toastr.options.positionClass = "toast-bottom-center";
   }
 
   handleAddChange = (date) => {
@@ -121,11 +126,8 @@ class App extends Component {
   };
 
   addExclusionDate = () => {
-    if (this.state.newExclusionReason === '') {
-      return;
-    }
-
     if (!this.state.newExclusionReason) {
+      toastr.error("Empty exclusion reason");
       return;
     }
 
@@ -142,6 +144,8 @@ class App extends Component {
       calculatorInfo: newExcludedDates,
       newExclusionReason: ''
     });
+
+    toastr.success("Exclusion date successfully added");
   };
 
   calculateDate = ({target}) => {
