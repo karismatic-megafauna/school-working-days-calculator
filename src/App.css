@@ -14,3 +14,39 @@
 .animated {
 	animation-duration: 0.2s;
 }
+
+/* Forms */
+.formContainer {
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+}
+.formObject {
+  width: 40vw;
+  height: auto;
+  align-self: center;
+}
+.dateTitle {
+  width: auto;
+  height: auto;
+  text-align: center;
+}
+.dateContainer {
+  display: block;
+  justify-content: center;
+}
+.dateCounter {
+  display: flex;
+  justify-content: center;
+}
+.dateDisplay {
+  display: block;
+}
+.exclusionContainer {
+  text-align: center;
+  display: block;
+}
+.exclusionButton {
+  display: flex;
+  justify-content: center;
+}

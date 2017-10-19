@@ -267,54 +267,56 @@ class App extends Component {
               )
             }
           </Title>
-          <Content>
-            <Control>
-              <div>In</div>
-              <div className="margin">
-                <Input
-                  type="number"
-                  onChange={this.calculateDate}
-                />
+          <div className={"formContainer"}>
+            <div className={"formObject"}>
+              <div className={"dateTitle"}>
+                Add a New Date to Exclude
               </div>
-              <div>working days it will be:</div>
-            </Control>
-            <Result>
-              { this.state.result &&
-                  <ResultContent>
-                    <Date>
-                      {moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}
-                    </Date>
-                    <Date className="Date">{this.state.result}</Date>
-                  </ResultContent>
-              }
-            </Result>
-          </Content>
-          <Content>
-            <Control>
-              Add a New Date to Exclude
-            </Control>
-            <Control>
-              <ExclusionInput
-                type="text"
-                value={this.state.newExclusionReason}
-                onChange={this.handleReasonChange}
-                placeholder="Enter exclusion reason"
-              />
-              <DatePicker
-                selected={this.state.newExclusionDate}
-                onChange={this.handleAddChange}
-                excludeDates={this.getExcludedDates()}
-                filterDate={this.isWeekday}
-                className="margin"
-                readOnly
-              />
-              <Button
-                onClick={this.addExclusionDate}
-              >
-                Add Exclusion Date
-              </Button>
-            </Control>
-          </Content>
+              <div className={"dateContainer"}>
+                <Control className={"dateCounter"}>
+                  <span>In</span>
+                  <span className="margin">
+                    <Input
+                      type="number"
+                      onChange={this.calculateDate}
+                    />
+                  </span>
+                  <span>working days it will be:</span>
+                </Control>
+                <div className={"dateDisplay"}>
+                  { this.state.result &&
+                      <ResultContent>
+                        <Date>
+                          {moment(this.state.result, 'MM-DD-YYYY').format('dddd, MMMM Do YYYY')}
+                        </Date>
+                        <Date className="Date">{this.state.result}</Date>
+                      </ResultContent>
+                  }
+                </div>
+              </div>
+              <div className={"exclusionContainer"}>
+                <ExclusionInput
+                  type="text"
+                  value={this.state.newExclusionReason}
+                  onChange={this.handleReasonChange}
+                  placeholder="Enter exclusion reason"
+                />
+                <DatePicker
+                  selected={this.state.newExclusionDate}
+                  onChange={this.handleAddChange}
+                  excludeDates={this.getExcludedDates()}
+                  filterDate={this.isWeekday}
+                  className="margin"
+                  readOnly
+                />
+              <div className={"exclusionButton"}>
+                <Button onClick={this.addExclusionDate}>
+                  Add Exclusion Date
+                </Button>
+              </div>
+              </div>
+            </div>
+          </div>
         </Main>
       </Page>
     );
