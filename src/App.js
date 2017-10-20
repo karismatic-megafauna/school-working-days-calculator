@@ -145,6 +145,23 @@ class App extends Component {
       newExclusionReason: ''
     });
 
+    // clone since moment objects are mutable
+    let nextDate = this.state.newExclusionDate.clone().add(1, "days")
+
+    // extract list of dates as "YYYY-MM-DD"
+    let excludedDateList = newExcludedDatesData.map((item) => item.date)
+
+    // go to next date until non-weekend day not in excludedDateList found 
+    while ((excludedDateList.indexOf(nextDate.format("YYYY-MM-DD")) >= 0) ||
+           (!this.isWeekday(nextDate))
+    ) {
+      nextDate.add(1, "days");
+    }
+
+    this.setState({
+      newExclusionDate: nextDate,
+    });
+
     toastr.success("Exclusion date successfully added");
   };
 
